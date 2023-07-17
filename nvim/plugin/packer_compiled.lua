@@ -104,6 +104,16 @@ _G.packer_plugins = {
     path = "/home/headzy/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
+  ["dressing.nvim"] = {
+    loaded = true,
+    path = "/home/headzy/.local/share/nvim/site/pack/packer/start/dressing.nvim",
+    url = "https://github.com/stevearc/dressing.nvim"
+  },
+  ["flutter-tools.nvim"] = {
+    loaded = true,
+    path = "/home/headzy/.local/share/nvim/site/pack/packer/start/flutter-tools.nvim",
+    url = "https://github.com/akinsho/flutter-tools.nvim"
+  },
   ["friendly-snippets"] = {
     loaded = true,
     path = "/home/headzy/.local/share/nvim/site/pack/packer/start/friendly-snippets",
@@ -203,6 +213,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/headzy/.local/share/nvim/site/pack/packer/start/verilog",
     url = "https://github.com/vhda/verilog_systemverilog.vim"
+  },
+  ["vim-be-good"] = {
+    loaded = true,
+    path = "/home/headzy/.local/share/nvim/site/pack/packer/start/vim-be-good",
+    url = "https://github.com/ThePrimeagen/vim-be-good"
   },
   ["vim-fugitive"] = {
     loaded = true,

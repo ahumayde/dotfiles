@@ -30,3 +30,4 @@ vim.opt.updatetime= 50
 vim.opt.clipboard= "unnamed,unnamedplus"
 
 vim.opt.foldmethod="indent"
+vim.opt.foldlevelstart= 1

@@ -92,13 +92,18 @@ return require('packer').startup(function(use)
       }
 
 -- FLUTTER
-use {
-    'akinsho/flutter-tools.nvim',
-    requires = {
-        'nvim-lua/plenary.nvim',
-        'stevearc/dressing.nvim', -- optional for vim.ui.select
-    },
-}
+    use {
+        'akinsho/flutter-tools.nvim',
+        requires = {
+            'nvim-lua/plenary.nvim',
+            'stevearc/dressing.nvim', -- optional for vim.ui.select
+        },
+    }
+
+-- VIM BE GOOD
+    use {
+        'ThePrimeagen/vim-be-good'
+    }
 end)
 
 
