@@ -14,5 +14,5 @@ require("neo-tree").setup{
 }
 
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
-vim.keymap.set("n", "<leader>n", ":Neotree toggle left<cr>")
-vim.keymap.set("n", "<leader>m", ":Neotree toggle float<cr>")
+vim.keymap.set("n", "<leader>m", ":Neotree toggle left<cr>")
+-- vim.keymap.set("n", "<leader>m", ":Neotree toggle float<cr>")
