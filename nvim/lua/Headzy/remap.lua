@@ -1,18 +1,25 @@
 vim.g.mapleader = " "
+-- vim.api.nvim_del_keymap("t","<Tab>")
+
+-- SAVING
+vim.keymap.set("n", "<A-w>", vim.cmd.w)
+vim.keymap.set("n", "<A-q>", vim.cmd.w)
 
 -- CHANGE BUFFER
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("n", "<leader>h", ":help ")
 vim.keymap.set("n", "<leader>t", "<C-w>s:term<CR>")
-
+vim.keymap.set("n", "<leader>b", "<C-6>")
 vim.keymap.set("n", "<leader>n", "<C-w>")
+vim.keymap.set("n", "<C-b>", "<C-6>")
 
 -- TERMINAL
-vim.keymap.set("t", "<leader><Esc>", "<C-\\><C-n><C-w>q")
+vim.keymap.set("t", "<S-Esc>", "<C-\\><C-n><C-w>q")
+vim.keymap.set("t", "<S-Tab>", "<C-\\><C-n><C-w>q")
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
-vim.keymap.set("t", "<Tab>", "<C-\\><C-n>")
+-- vim.keymap.set("t", "<Tab>", "<C-\\><C-n>")
 
--- SELECTION 
+-- SELECTION
 vim.keymap.set("n", "<C-a>", "GVgg")
 vim.keymap.set("n", "<leader>s", "GVgg:s/")
 vim.keymap.set("x", "<leader>s", ":s/")
@@ -60,13 +67,29 @@ vim.keymap.set("n", "*", "*zzzv")
 vim.keymap.set("n", "#", "#zzzv")
 
 -- LSP
+vim.keymap.set("n", "gd", vim.lsp.buf.definition)
+vim.keymap.set("n", "K", vim.lsp.buf.hover)
+vim.keymap.set("n", "<leader>vrn", vim.lsp.buf.rename)
+vim.keymap.set("n", "<leader>vca", vim.lsp.buf.code_action)
+vim.keymap.set("n", "<leader>vdi", vim.diagnostic.open_float)
+vim.keymap.set("n", "[d", vim.diagnostic.goto_next)
+vim.keymap.set("n", "]d", vim.diagnostic.goto_prev)
+vim.keymap.set({ "n", "x"}, "<leader>vdc", ":lua vim.diagnostic.config({virtual_text = false})<CR>")
+vim.keymap.set({ "n", "x" }, "<leader>vdo", ":lua vim.diagnostic.config({virtual_text = true})<CR>")
+vim.keymap.set({ "n", "x" }, "<leader>vf", ":lua vim.lsp.buf.format({async = false, timeout_ms = 10000})<CR>")
+
+-- Not Using
+vim.keymap.set("n", "<leader>vrr", vim.lsp.buf.references)
+vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol)
+vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help)
+
 -- "gd"  -> go to definition
 -- "K"   -> hover
 -- "vf"  -> format
 -- "vrn" -> rename
 -- "vca" -> code action
 -- "vdi" -> diagnostic info
--- "vdo" -> diagnostic open 
+-- "vdo" -> diagnostic open
 -- "vdc" -> diagnostic close
 -- "[d"  -> diagnostic prev
 -- "]d"  -> diagnostic next

@@ -5,71 +5,64 @@ vim.cmd [[packadd packer.nvim]]
 vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 
 return require('packer').startup(function(use)
-
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
--- TELESCOPE
+    -- TELESCOPE
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.1',
-        -- or                            , branch = '0.1.x',
-        requires = { {'nvim-lua/plenary.nvim'} }
+        -- or                          , branch = '0.1.x',
+        requires = { { 'nvim-lua/plenary.nvim' } }
     }
 
--- COLOUR SCHEMES
-    use({
-        'folke/tokyonight.nvim',
-        as = 'tokyonight',
-    })
+    -- COLOUR SCHEMES
+    use({ 'folke/tokyonight.nvim', as = 'tokyonight', })
 
-    use({
-        'Mofiqul/vscode.nvim',
-        as = 'vscode',
-    })
+    use({ 'Mofiqul/vscode.nvim', as = 'vscode', })
 
-    use({
-        'rose-pine/neovim',
-        as = 'rose-pine',
-    })
+    use({ 'rose-pine/neovim', as = 'rose-pine', })
 
--- OTHERS
-    use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'} )
+    -- OTHERS
+    use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
     use('nvim-treesitter/playground')
     use("nvim-lua/plenary.nvim")
     use('theprimeagen/harpoon')
     use('mbbill/undotree')
     use('tpope/vim-fugitive')
-    use("nvim-treesitter/nvim-treesitter-context");
+    use('nvim-treesitter/nvim-treesitter-context')
+    use('andweeb/presence.nvim')
 
--- LSP
+    -- LSP
     use {
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v1.x',
         requires = {
             -- LSP Support
-            {'neovim/nvim-lspconfig'},
-            {'williamboman/mason.nvim'},
-            {'williamboman/mason-lspconfig.nvim'},
+            { 'neovim/nvim-lspconfig' },
+            { 'williamboman/mason.nvim' },
+            { 'williamboman/mason-lspconfig.nvim' },
 
             -- Autocompletion
-            {'hrsh7th/nvim-cmp'},
-            {'hrsh7th/cmp-buffer'},
-            {'hrsh7th/cmp-path'},
-            {'saadparwaiz1/cmp_luasnip'},
-            {'hrsh7th/cmp-nvim-lsp'},
-            {'hrsh7th/cmp-nvim-lua'},
+            { 'hrsh7th/nvim-cmp' },
+            { 'hrsh7th/cmp-buffer' },
+            { 'hrsh7th/cmp-path' },
+            { 'saadparwaiz1/cmp_luasnip' },
+            { 'hrsh7th/cmp-nvim-lsp' },
+            { 'hrsh7th/cmp-nvim-lua' },
 
             -- Snippets
-            {'L3MON4D3/LuaSnip'},
-            {'rafamadriz/friendly-snippets'},
+            { 'L3MON4D3/LuaSnip' },
+            { 'rafamadriz/friendly-snippets' },
         }
     }
+
+    -- VERILOG
     use {
         'vhda/verilog_systemverilog.vim',
         as = 'verilog'
     }
 
--- FILE TREE
+    -- FILE TREE
     -- use {
     --     'nvim-tree/nvim-tree.lua',
     --     requires = {
@@ -90,7 +83,7 @@ return require('packer').startup(function(use)
         }
     }
 
--- FLUTTER
+    -- FLUTTER
     use {
         'akinsho/flutter-tools.nvim',
         requires = {
@@ -99,18 +92,20 @@ return require('packer').startup(function(use)
         },
     }
 
--- VIM BE GOOD
-    use {
-        'ThePrimeagen/vim-be-good'
-    }
+    -- VIM BE GOOD
+    use { 'ThePrimeagen/vim-be-good' }
 
--- COMMENT
+    -- COMMENT
     use {
         'numToStr/Comment.nvim',
         config = function()
             require('Comment').setup()
         end
     }
+
+    -- MULTI LINE
+    use {
+        'mg979/vim-visual-multi',
+        branch = 'master',
+    }
 end)
-
-
