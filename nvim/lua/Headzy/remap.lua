@@ -4,6 +4,8 @@ vim.g.mapleader = " "
 -- SAVING
 vim.keymap.set("n", "<A-w>", vim.cmd.w)
 vim.keymap.set("n", "<A-q>", vim.cmd.q)
+vim.keymap.set("n", "<leader>w", vim.cmd.w)
+vim.keymap.set("n", "<leader>quit", vim.cmd.qa)
 
 -- CHANGE BUFFER
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
