@@ -3,12 +3,12 @@ vim.g.mapleader = " "
 
 -- SAVING
 vim.keymap.set("n", "<A-w>", vim.cmd.w)
-vim.keymap.set("n", "<A-q>", vim.cmd.w)
+vim.keymap.set("n", "<A-q>", vim.cmd.q)
 
 -- CHANGE BUFFER
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("n", "<leader>h", ":help ")
-vim.keymap.set("n", "<leader>t", "<C-w>s:term<CR>")
+vim.keymap.set("n", "<leader>t", "<C-w>s:term<CR><C-w>10-")
 vim.keymap.set("n", "<leader>b", "<C-6>")
 vim.keymap.set("n", "<leader>n", "<C-w>")
 vim.keymap.set("n", "<C-b>", "<C-6>")
@@ -63,7 +63,6 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("n", "*", "*zzzv")
-vim.keymap.set("n", "*", "*zzzv")
 vim.keymap.set("n", "#", "#zzzv")
 
 -- LSP
@@ -74,7 +73,7 @@ vim.keymap.set("n", "<leader>vca", vim.lsp.buf.code_action)
 vim.keymap.set("n", "<leader>vdi", vim.diagnostic.open_float)
 vim.keymap.set("n", "[d", vim.diagnostic.goto_next)
 vim.keymap.set("n", "]d", vim.diagnostic.goto_prev)
-vim.keymap.set({ "n", "x"}, "<leader>vdc", ":lua vim.diagnostic.config({virtual_text = false})<CR>")
+vim.keymap.set({ "n", "x" }, "<leader>vdc", ":lua vim.diagnostic.config({virtual_text = false})<CR>")
 vim.keymap.set({ "n", "x" }, "<leader>vdo", ":lua vim.diagnostic.config({virtual_text = true})<CR>")
 vim.keymap.set({ "n", "x" }, "<leader>vf", ":lua vim.lsp.buf.format({async = false, timeout_ms = 10000})<CR>")
 

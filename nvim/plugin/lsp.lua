@@ -22,7 +22,7 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
     ['<A-y>'] = cmp.mapping.confirm({ select = true }),
     ["<A-f>"] = cmp.mapping.complete(),
     ["<C-f>"] = cmp.mapping.complete(),
-    ["<C-Space>"] = cmp.mapping.complete(),
+    ["<C-Space>"] = cmp.mapping.complete(), -- Enter
 })
 -- cmp_mappings['<Tab>'] = nil
 -- cmp_mappings['<S-Tab>'] = nil
@@ -35,9 +35,9 @@ lsp.set_preferences({
     suggest_lsp_servers = false,
     sign_icons = {
         error = 'E',
-        warn = 'W',
-        hint = 'H',
-        info = 'I'
+        warn  = 'W',
+        hint  = 'H',
+        info  = 'I'
     }
 })
 

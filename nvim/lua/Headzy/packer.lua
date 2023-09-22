@@ -26,10 +26,10 @@ return require('packer').startup(function(use)
     use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
     use('nvim-treesitter/playground')
     use("nvim-lua/plenary.nvim")
+    use('nvim-treesitter/nvim-treesitter-context')
     use('theprimeagen/harpoon')
     use('mbbill/undotree')
     use('tpope/vim-fugitive')
-    use('nvim-treesitter/nvim-treesitter-context')
     use('andweeb/presence.nvim')
 
     -- LSP
@@ -72,7 +72,8 @@ return require('packer').startup(function(use)
     --         require("nvim-tree").setup {}
     --     end
     -- }
-    use("nvim-tree/nvim-web-devicons")
+    -- use("nvim-tree/nvim-web-devicons")
+
     use {
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v2.x",

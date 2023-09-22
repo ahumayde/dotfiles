@@ -1,10 +1,12 @@
 require('Comment').setup {
     toggler  = {
         line = '<C-_>',
+        -- line = 'gcc',
         block = 'gbc'
     },
     opleader = {
         line = '<C-_>',
+        -- line = 'gc',
         block = 'gb'
     },
     mappings = {
@@ -14,7 +16,7 @@ require('Comment').setup {
 }
 
 -- gcA  - Insert comment to end of the current line and enters INSERT mode
--- gc$  - Toggle from the current cursor position to the end of line
+-- gb$  - Toggle from the current cursor position to the end of line
 
 -- gcip - Toggle inside of paragraph
 -- gc}  - Toggle until the next blank line
