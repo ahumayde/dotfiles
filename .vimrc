@@ -15,7 +15,7 @@ nmap <Leader>n <C-w>
 nmap <C-b> <C-6>
 
 " TERMINAL
-tmap <S-Esc> <C-\><C-n>:q!<CR>
+" tmap <S-Esc> <C-\><C-n>:q!<CR>
 tmap <S-Tab> <C-\><C-n>:q!<CR>
 tmap <Esc> <C-\><C-n>
 
@@ -89,7 +89,7 @@ set updatetime=50
 
 set clipboard=unnamed
 
-colorscheme sorcerer
+colorscheme codedark
 
 set foldlevelstart=99
 set foldmethod=indent
