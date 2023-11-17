@@ -29,6 +29,7 @@ vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
 -- vim.keymap.set("t", "<Tab>", "<C-\\><C-n>")
 
 -- SELECTION
+vim.keymap.set("n", "<C-x>", "<C-v>")
 vim.keymap.set("n", "<C-a>", "GVgg")
 vim.keymap.set("n", "<leader>s", "GVgg:s/")
 vim.keymap.set("x", "<leader>s", ":s/")
