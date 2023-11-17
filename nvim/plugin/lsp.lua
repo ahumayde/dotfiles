@@ -1,4 +1,5 @@
 local lsp = require("lsp-zero")
+local lspconfig = require("lspconfig")
 
 lsp.preset("recommended")
 
@@ -69,3 +70,45 @@ lsp.setup()
 vim.diagnostic.config({
     virtual_text = true
 })
+
+local warnings = {
+    'E203',    -- Whitespace before colon
+    'E221',    -- Multiple spaces before operator
+    -- 'E223', -- Whitespace before operator
+    -- 'E225', -- Missing whitespace around operator
+    'E226', -- Missing whitespace around arithmetic operator
+    'E231',    -- Missing whitespace after ','
+    -- 'E301', -- Expected 1 blank line, found 0
+    -- 'E302', -- Expected 2 blank lines, found 0
+    -- 'E303', -- Too many blank lines (3)
+    'E501',    -- Line too long (max-line-length)
+    -- 'E503', -- Line break occurred before a binary operator
+    -- 'W291', -- Trailing whitespace
+    -- 'W293', -- Blank line contains whitespace
+    -- 'F403', -- 'from module import *' used; unable to detect undefined names
+    -- 'F405', -- 'foo.bar' may be undefined, or defined from star imports
+}
+
+lspconfig.pylsp.setup {
+    settings = {
+        pylsp = {
+            plugins = {
+                pyflakes = {
+                    enabled = false,
+                },
+                flake8 = {
+                    ignore = warnings,
+                },
+                pycodestyle = {
+                    ignore = warnings,
+                },
+                pydocstyle = {
+                    ignore = warnings,
+                },
+                pylint = {
+                    ignore = warnings,
+                },
+            },
+        },
+    },
+}
