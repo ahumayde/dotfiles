@@ -1,5 +1,5 @@
 vim.g.mapleader = " "
--- vim.api.nvim_del_keymap("t","<Tab>")
+-- vim.api.nvim_del_keymap("n","<CR>")
 
 -- SAVING
 vim.keymap.set("n", "<A-w>", vim.cmd.w)
@@ -15,28 +15,32 @@ vim.keymap.set("n", "<leader>n", "<C-w>")
 vim.keymap.set("n", "<C-b>", "<C-6>")
 
 -- TERMINAL
-vim.keymap.set("n", "<leader>nt", "<C-w>s:term<CR><C-w>9-i")
-vim.keymap.set("n", "<leader>t", "<C-w>s:term<CR><C-w>9-i")
-vim.keymap.set("n", "<leader>ts", "<C-w>s:term<CR><C-w>9-i")
-vim.keymap.set("n", "<leader>tk", "<C-w>s:term<CR><C-w>9-i")
-vim.keymap.set("n", "<leader>tj", "<C-w>s<C-w>j:term<CR><C-w>8-i")
+vim.keymap.set("n", "<leader>nt", "<C-w>s:term<CR>:res 7<CR>i")
+vim.keymap.set("n", "<leader>t", "<C-w>s:term<CR>:res 7<CR>i")
+vim.keymap.set("n", "<leader>ts", "<C-w>s:term<CR>:res 7<CR>i")
+vim.keymap.set("n", "<leader>tk", "<C-w>s:term<CR>:res 7<CR>i")
+vim.keymap.set("n", "<leader>tj", "<C-w>s<C-w>j:term<CR>:res 10<CR>i")
 vim.keymap.set("n", "<leader>tv", "<C-w>v<C-w>l:term<CR>i")
 vim.keymap.set("n", "<leader>tl", "<C-w>v<C-w>l:term<CR>i")
 vim.keymap.set("n", "<leader>th", "<C-w>v:term<CR>i")
 vim.keymap.set("t", "<S-Esc>", "<C-\\><C-n><C-w>q")
 vim.keymap.set("t", "<S-Tab>", "<C-\\><C-n><C-w>q")
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
+vim.keymap.set("n", "<leader>r", ":res 5<CR>")
+vim.keymap.set("n", "<leader>r1", ":res 5<CR>")
+vim.keymap.set("n", "<leader>r2", ":res 10<CR>")
+vim.keymap.set("n", "<leader>r3", ":res 15<CR>")
 -- vim.keymap.set("t", "<Tab>", "<C-\\><C-n>")
 
 -- SELECTION
 vim.keymap.set("n", "<C-x>", "<C-v>")
 vim.keymap.set("n", "<C-a>", "GVgg")
-vim.keymap.set("n", "<leader>s", "GVgg:s/")
+vim.keymap.set("n", "<leader>s", "msGVgg:s/")
 vim.keymap.set("x", "<leader>s", ":s/")
 vim.keymap.set("v", "<leader>s", ":s/")
 
 -- NEW LINE
-vim.keymap.set("n", "<CR>", "o<Esc>")
+-- vim.keymap.set("n", "<CR>", "o<Esc>")
 vim.keymap.set("n", "<BS>", "O<Esc>")
 
 -- SHIFT UP
@@ -55,25 +59,33 @@ vim.keymap.set("x", "J", ":m'>+<CR>gv=gv")
 
 -- TAB
 vim.keymap.set("n", "<Tab>", ">>")
-vim.keymap.set("x", "<Tab>", ">")
+vim.keymap.set("x", "<Tab>", ">gv")
 
 -- SHIFT TAB
 vim.keymap.set("i", "<S-Tab>", "<C-d>")
 vim.keymap.set("n", "<S-Tab>", "<<")
-vim.keymap.set("x", "<S-Tab>", "<")
+vim.keymap.set("x", "<S-Tab>", "<gv")
 
 -- SCROLLING
 vim.keymap.set("n", "L", "$")
 vim.keymap.set("n", "H", "^")
 vim.keymap.set("n", "J", "mzJ`z")
+vim.keymap.set("n", "<S-m>", "zz")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
 -- SEARCHING
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
-vim.keymap.set("n", "*", "*zzzv")
-vim.keymap.set("n", "#", "#zzzv")
+vim.keymap.set("n", "*", "#zzzv")
+vim.keymap.set("n", "#", "*zzzv")
+
+-- MOVING
+vim.keymap.set("n", "gg", "msgg")
+vim.keymap.set("n", "G", "msG")
+vim.keymap.set("n", "<A-b>", "`s")
+vim.keymap.set("n", "<A-b>", "`s")
+vim.keymap.set("n", "<leader>g", "`")
 
 -- LSP
 vim.keymap.set("n", "gd", vim.lsp.buf.definition)
