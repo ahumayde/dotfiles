@@ -22,6 +22,12 @@ return require('packer').startup(function(use)
 
     use({ 'rose-pine/neovim', as = 'rose-pine', })
 
+    use({ "catppuccin/nvim", as = "catppuccin" })
+
+    use({ "bluz71/vim-nightfly-colors", as = "nightfly" })
+
+    use({ "joshdick/onedark.vim", as = "onedark" })
+
     -- OTHERS
     use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
     use('nvim-treesitter/playground')
