@@ -30,7 +30,7 @@ $ git clone https://github.com/neovim/neovim\
 ##### Install config
 If `.config/` already exists, rename it, clone this repo and then merge the old contents back into the new directory
 ```bash
-$ git clone https://github.com/ahumayde/.config\
+$ git clone https://github.com/ahumayde/.config
 ```
 #### Shared Clipboard
 Enter this into Command Prompt as Administrator
