@@ -31,7 +31,6 @@ $ git clone https://github.com/neovim/neovim\
 If `.config/` already exists, rename it, clone this repo and then merge the old contents back into the new directory
 ```bash
 $ git clone https://github.com/ahumayde/.config\
-  && cd .config/ && git checkout NeoVim-WSL-Ubuntu-22.04.02-SurfacePro9
 ```
 #### Shared Clipboard
 Enter this into Command Prompt as Administrator
