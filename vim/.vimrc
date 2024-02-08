@@ -8,7 +8,7 @@ nmap <Leader>quit :qa!<CR>
 
 " CHANGE BUFFER
 nmap <Leader>pv :Ex<CR>
-nmap <Leader>h :help
+nmap <Leader>h :help 
 nmap <Leader>t :term<CR><C-w>5-
 nmap <Leader>b <C-6>
 nmap <Leader>n <C-w>
@@ -25,7 +25,8 @@ nmap <Leader>s GVgg:s/
 vmap <Leader>s :s/
 
 " NEW LINE
-nmap <CR> o<Esc>
+nmap o o<Esc>
+nmap O O<Esc>
 nmap <BS> O<Esc>
 
 " SHIFT UP
@@ -57,6 +58,16 @@ nmap n nzzzv
 nmap N Nzzzv
 nmap * *zzzv
 nmap # #zzzv
+
+" MOVING
+nmap gg msgg
+nmap G msG
+nmap : ms:
+nmap <A-b> `s
+nmap <C-b> mr`s
+nmap <A-n> `r
+nmap <C-n> `r
+nmap <leader>g `
 
 set guicursor="i-ci-ve-c:ver25,r-cr:hor20"
 

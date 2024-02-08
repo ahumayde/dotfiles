@@ -2,7 +2,13 @@
 
 -- Only required if you have packer configured as `opt`
 vim.cmd [[packadd packer.nvim]]
-vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+vim.cmd [[let g:fsharp#fsi_keymap = "custom"]]
+vim.cmd [[let g:fsharp#fsi_keymap_send   = "<S-CR>"]]
+vim.cmd [[let g:fsharp#fsi_keymap_toggle = "<C-CR>"]]
+vim.cmd [[let g:fsharp#unused_declarations_analyzer = 1]]
+vim.cmd [[let g:neo_tree_remove_legacy_commands = 1]]
+-- vim.lsp.codelens = false
+-- vim.lsp.codelens.on_codelens = function(e, r, c) return nil end
 
 return require('packer').startup(function(use)
     -- Packer can manage itself
@@ -10,23 +16,19 @@ return require('packer').startup(function(use)
 
     -- TELESCOPE
     use {
-        'nvim-telescope/telescope.nvim', tag = '0.1.1',
-        -- or                          , branch = '0.1.x',
+        'nvim-telescope/telescope.nvim',
         requires = { { 'nvim-lua/plenary.nvim' } }
     }
 
     -- COLOUR SCHEMES
     use({ 'folke/tokyonight.nvim', as = 'tokyonight', })
-
     use({ 'Mofiqul/vscode.nvim', as = 'vscode', })
-
     use({ 'rose-pine/neovim', as = 'rose-pine', })
-
     use({ "catppuccin/nvim", as = "catppuccin" })
-
     use({ "bluz71/vim-nightfly-colors", as = "nightfly" })
-
     use({ "joshdick/onedark.vim", as = "onedark" })
+    use({ "EdenEast/nightfox.nvim", as = "nightfox" })
+    use({ "olivercederborg/poimandres.nvim", as = "poimandres" })
 
     -- OTHERS
     use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
@@ -59,16 +61,27 @@ return require('packer').startup(function(use)
             -- Snippets
             { 'L3MON4D3/LuaSnip' },
             { 'rafamadriz/friendly-snippets' },
+
         }
     }
 
+    -- FSharp F#
+    -- use { 'autozimu/LanguageClient-neovim', branch = 'next', run = 'bash install.sh' }
+    use { "ionide/Ionide-vim", }
+
     -- VERILOG
-    use {
-        'vhda/verilog_systemverilog.vim',
-        as = 'verilog'
-    }
+    use { 'vhda/verilog_systemverilog.vim', as = 'verilog' }
 
     -- FILE TREE
+    use {
+        "nvim-neo-tree/neo-tree.nvim",
+        branch = "v2.x",
+        requires = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+            "MunifTanjim/nui.nvim",
+        }
+    }
     -- use {
     --     'nvim-tree/nvim-tree.lua',
     --     requires = {
@@ -79,16 +92,6 @@ return require('packer').startup(function(use)
     --     end
     -- }
     -- use("nvim-tree/nvim-web-devicons")
-
-    use {
-        "nvim-neo-tree/neo-tree.nvim",
-        branch = "v2.x",
-        requires = {
-            "nvim-lua/plenary.nvim",
-            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-            "MunifTanjim/nui.nvim",
-        }
-    }
 
     -- FLUTTER
     use {
@@ -121,8 +124,13 @@ return require('packer').startup(function(use)
         "iamcco/markdown-preview.nvim",
         run = function() vim.fn["mkdp#util#install"]() end,
     }
-    use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
 
-
+    --[[ use({ "iamcco/markdown-preview.nvim",
+          run = "cd app && npm install",
+          ft = { "markdown" },
+          setup = function()
+             vim.g.mkdp_filetypes = { "markdown" } 
+          end, 
+    }) ]]
 
 end)

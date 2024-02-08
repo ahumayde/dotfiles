@@ -80,10 +80,20 @@ _G.packer_plugins = {
     path = "/home/headzy/.local/share/nvim/site/pack/packer/start/Comment.nvim",
     url = "https://github.com/numToStr/Comment.nvim"
   },
+  ["Ionide-vim"] = {
+    loaded = true,
+    path = "/home/headzy/.local/share/nvim/site/pack/packer/start/Ionide-vim",
+    url = "https://github.com/ionide/Ionide-vim"
+  },
   LuaSnip = {
     loaded = true,
     path = "/home/headzy/.local/share/nvim/site/pack/packer/start/LuaSnip",
     url = "https://github.com/L3MON4D3/LuaSnip"
+  },
+  catppuccin = {
+    loaded = true,
+    path = "/home/headzy/.local/share/nvim/site/pack/packer/start/catppuccin",
+    url = "https://github.com/catppuccin/nvim"
   },
   ["cmp-buffer"] = {
     loaded = true,
@@ -155,6 +165,16 @@ _G.packer_plugins = {
     path = "/home/headzy/.local/share/nvim/site/pack/packer/start/neo-tree.nvim",
     url = "https://github.com/nvim-neo-tree/neo-tree.nvim"
   },
+  nightfly = {
+    loaded = true,
+    path = "/home/headzy/.local/share/nvim/site/pack/packer/start/nightfly",
+    url = "https://github.com/bluz71/vim-nightfly-colors"
+  },
+  nightfox = {
+    loaded = true,
+    path = "/home/headzy/.local/share/nvim/site/pack/packer/start/nightfox",
+    url = "https://github.com/EdenEast/nightfox.nvim"
+  },
   ["nui.nvim"] = {
     loaded = true,
     path = "/home/headzy/.local/share/nvim/site/pack/packer/start/nui.nvim",
@@ -185,6 +205,11 @@ _G.packer_plugins = {
     path = "/home/headzy/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
     url = "https://github.com/nvim-tree/nvim-web-devicons"
   },
+  onedark = {
+    loaded = true,
+    path = "/home/headzy/.local/share/nvim/site/pack/packer/start/onedark",
+    url = "https://github.com/joshdick/onedark.vim"
+  },
   ["packer.nvim"] = {
     loaded = true,
     path = "/home/headzy/.local/share/nvim/site/pack/packer/start/packer.nvim",
@@ -199,6 +224,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/headzy/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
+  },
+  poimandres = {
+    loaded = true,
+    path = "/home/headzy/.local/share/nvim/site/pack/packer/start/poimandres",
+    url = "https://github.com/olivercederborg/poimandres.nvim"
   },
   ["presence.nvim"] = {
     loaded = true,

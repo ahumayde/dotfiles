@@ -1,20 +1,4 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
@@ -35,6 +19,10 @@ HISTFILESIZE=2000
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
+
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+#shopt -s globstar
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -106,11 +94,29 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+# colored GCC warnings and errors
+#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
 # some more ls aliases
 alias ls='ls --group-directories-first --color=auto -X'
 alias ll='ls --group-directories-first --color=auto -alXF'
 alias la='ls --group-directories-first --color=auto -AX'
 alias l='ls --group-directories-first --color=auto -CFX'
+
+# DSD Aliases
+alias eclipse='~/intelFPGA_lite/20.1/nios2eds/bin/eclipse-nios2'
+alias quartus='~/intelFPGA_lite/20.1/quartus/bin/quartus'
+alias nios2_shell='~/intelFPGA_lite/20.1/nios2eds/nios2_command_shell.sh'
+
+export QSYS_ROOTDIR="/home/e2/intelFPGA_lite/20.1/quartus/sopc_builder/bin"
+export QUARTUS_ROOTDIR_OVERRIDE=/home/e2/intelFPGA_lite/20.1/quartus
+export MODELSIM_ROOTDIR=/home/e2/intelFPGA_lite/20.1/modelsim_ase
+export PATH="$PATH:$QUARTUS_ROOTDIR/bin:$QSYS_ROOTDIR:$MODELSIM_ROOTDIR/bin"
+
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -136,7 +142,8 @@ gitp() {
 LS_COLORS=$LS_COLORS:'no=1;38;5;35:fi=1;97:ln=1;38;5;93:tw=1;34:pi=40;33:ex=1;93
 :or=40;31;01:mi=01:ow=34;38;5;57;01:*.tar=01;91:*.tgz=01;31:*.zip=1;31:*.sh=1;92
 :*.deb=1;31:*.rar=1;31:*.jpg=1;35:*.jpeg=1;35:*.gif=1;35:*.png=01;35:*.svg=01;35
-:*.svgz=1;35:*.mov=1;35:*.mpeg=1;35:*.webm=1;35:*.mp4=1;35:*.mp3=1;35*.wav=01;36:'
+:*.svgz=1;35:*.mov=1;35:*.mpeg=1;35:*.webm=1;35:*.mp4=1;35:*.mp3=1;35*.wav=01;36
+:*.py=38;5;226:*.cpp=38;5;93'
 
 for h in $(find . -type f -name ".*"); do
     hf="${h##*/}"

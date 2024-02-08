@@ -1,11 +1,12 @@
 vim.g.mapleader = " "
--- vim.api.nvim_del_keymap("n","<CR>")
+vim.g.fsharp_map_fsisendline = "<C-s>"
+-- vim.api.nvim_del_keymap("n","<C-s>")
 
 -- SAVING
 vim.keymap.set("n", "<A-w>", vim.cmd.w)
 vim.keymap.set("n", "<A-q>", vim.cmd.q)
 vim.keymap.set("n", "<leader>w", vim.cmd.w)
-vim.keymap.set("n", "<leader>quit", vim.cmd.qa)
+vim.keymap.set("n", "<leader>quit", ":qa!<CR>")
 
 -- CHANGE BUFFER
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
@@ -41,6 +42,8 @@ vim.keymap.set("v", "<leader>s", ":s/")
 
 -- NEW LINE
 -- vim.keymap.set("n", "<CR>", "o<Esc>")
+vim.keymap.set("n", "o", "o<Esc>")
+vim.keymap.set("n", "O", "O<Esc>")
 vim.keymap.set("n", "<BS>", "O<Esc>")
 
 -- SHIFT UP
@@ -83,8 +86,11 @@ vim.keymap.set("n", "#", "*zzzv")
 -- MOVING
 vim.keymap.set("n", "gg", "msgg")
 vim.keymap.set("n", "G", "msG")
+vim.keymap.set("n", ":", "ms:")
 vim.keymap.set("n", "<A-b>", "`s")
-vim.keymap.set("n", "<A-b>", "`s")
+vim.keymap.set("n", "<C-b>", "mr`s")
+vim.keymap.set("n", "<A-n>", "`r")
+vim.keymap.set("n", "<C-n>", "`r")
 vim.keymap.set("n", "<leader>g", "`")
 
 -- LSP
@@ -98,6 +104,20 @@ vim.keymap.set("n", "]d", vim.diagnostic.goto_prev)
 vim.keymap.set({ "n", "x" }, "<leader>vdc", ":lua vim.diagnostic.config({virtual_text = false})<CR>")
 vim.keymap.set({ "n", "x" }, "<leader>vdo", ":lua vim.diagnostic.config({virtual_text = true})<CR>")
 vim.keymap.set({ "n", "x" }, "<leader>vf", ":lua vim.lsp.buf.format({async = false, timeout_ms = 10000})<CR>")
+
+--F#
+-- vim.keymap.set("n", "<A-CR>", ":echo Alt Enter Pressed!")
+-- vim.keymap.set("n", "<C-CR>", ":echo Ctrl Enter Pressed!")
+-- vim.keymap.set("n", "<S-CR>", ":echo Shift Enter Pressed!")
+
+-- vim.keymap.set("n", "<S-CR>", "Vy:FsiShow<CR>pi;;<CR><C-[>u")
+-- vim.keymap.set("v", "<S-CR>", "y:FsiShow<CR>pi;;<CR><C-[>u")
+vim.keymap.set("n", "<leader>fsi", "Vy:FsiReset<CR>pi;;<CR><C-[>u")
+-- vim.keymap.set("v", "<C-CR>", "y:FsiReset<CR>pi;;<CR><C-[>u")
+-- vim.keymap.set("n", "<leader>rsi", ":FsiReset<CR>")
+-- vim.keymap.set("n", "<leader>fsi", ":FsiShow<CR>")
+-- vim.keymap.set("n", "<C-s>", ":echo Ctrl s Pressed!")
+-- vim.keymap.set("n", "<S-CR>", ":echo Shift Enter Pressed!")
 
 -- Not Using
 vim.keymap.set("n", "<leader>vrr", vim.lsp.buf.references)

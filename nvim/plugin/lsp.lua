@@ -14,6 +14,13 @@ lsp.nvim_workspace()
 
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
+-- cmp.setup({
+--   mapping = cmp.mapping.preset.insert({
+--     ['<C-Space>'] = cmp.mapping.complete(),
+--     ['<C-f>'] = cmp_action.luasnip_jump_forward(),
+--     ['<C-b>'] = cmp_action.luasnip_jump_backward(),
+--   })
+-- })
 local cmp_mappings = lsp.defaults.cmp_mappings({
     ['<C-j>'] = cmp.mapping.select_next_item(cmp_select),
     ['<A-j>'] = cmp.mapping.select_next_item(cmp_select),
@@ -42,7 +49,7 @@ lsp.set_preferences({
     }
 })
 
-lsp.on_attach(function(client, bufnr)
+lsp.on_attach(function(_client, bufnr)
     local opts = { buffer = bufnr, remap = false }
     -- lsp.default_keymaps({ buffer = bufnr })
 
@@ -68,7 +75,7 @@ vim.keymap.set({ "n", "x" }, "<leader>vf", ":lua vim.lsp.buf.format({async = fal
 lsp.setup()
 
 vim.diagnostic.config({
-    virtual_text = true
+    virtual_text = false
 })
 
 local warnings = {
