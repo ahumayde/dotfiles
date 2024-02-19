@@ -13,6 +13,8 @@ vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("n", "<leader>h", ":help ")
 vim.keymap.set("n", "<leader>b", "<C-6>")
 vim.keymap.set("n", "<leader>n", "<C-w>")
+vim.keymap.set("n", "<leader>nw", "<C-w>W")
+vim.keymap.set("n", "<leader>nW", "<C-w>w")
 vim.keymap.set("n", "<C-b>", "<C-6>")
 
 -- TERMINAL
