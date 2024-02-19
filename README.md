@@ -15,8 +15,7 @@
 ##### Install Requirements
 ```bash 
 sudo apt update && sudo apt upgrade
-sudo apt install gcc python3.10 python3-pip unzip luarocks ripgrep
-sudo apt-get install ninja-build gettext cmake unzip curl
+sudo apt-get install gcc python3.10 python3-pip luarocks ninja-build gettext cmake unzip curl ripgrep
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
 nvm install node
 git clone --depth 1 https://github.com/wbthomason/packer.nvim\
