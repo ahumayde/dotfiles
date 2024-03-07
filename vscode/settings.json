@@ -1,0 +1,212 @@
+{
+// Default Settings
+"security.allowedUNCHosts": [ "wsl.localhost" ],
+"editor.unicodeHighlight.invisibleCharacters": false,
+"cmake.showOptionsMovedNotification": false,
+"cmake.configureOnOpen": true,
+
+// Editor Settings
+"editor.tabSize": 4,
+"editor.lineNumbers": "relative",
+"editor.insertSpaces": true,
+"editor.minimap.enabled": true,
+"editor.guides.indentation": false,
+"window.titleBarStyle": "custom",
+"workbench.editor.showTabs": "multiple",
+"workbench.editor.enablePreview": false,
+
+// Fonts
+"editor.fontLigatures": true,
+"editor.fontFamily": "Ligaconsolas Nerd Font, 'Courier New', monospace",
+"terminal.integrated.shellIntegration.enabled": false,
+"terminal.integrated.fontFamily": "CaskaydiaCove Nerd Font, monospace",
+
+// F Sharp 
+"dotnet.inlayHints.enableInlayHintsForParameters": false,
+"FSharp.codeLenses.signature.enabled": false,
+"FSharp.codeLenses.references.enabled": false,
+
+// Vim Settings 
+"vim.leader": "<space>",
+"vim.easymotion": true,
+"vim.useSystemClipboard": true,
+"vim.visualModeKeyBindings": [
+    {"before": ["tab"], "after": [">","g","v"]},
+    {"before": ["shift+tab"], "after": ["<","g","v"]}, ],
+"vim.normalModeKeyBindingsNonRecursive": [
+    {"before": ["ctrl+w"], "commands": ["workbench.action.closeActiveEditor"]},
+    {"before": ["ctrl+d"], "after": ["z","z","ctrl+d"]},
+    {"before": ["ctrl+u"], "after": ["z","z","ctrl+u"]},
+    {"before": ["#"], "after": ["*","z","z"]},
+    {"before": ["*"], "after": ["#","z","z"]}, ],
+"vim.normalModeKeyBindings": [
+    // Commands
+    // Menu/ File Explorer ctrl+shift+e
+    {"before": ["<leader>","m"], "commands": ["workbench.action.toggleSidebarVisibility"]},
+    {"before": ["<leader>","q","u","i","t"], "commands": ["toggleVim"]},
+    
+    // File
+    {"before": ["K"], "commands": ["editor.action.showHover"]},
+    {"before": ["<leader>","v","r","n"], "commands": ["editor.action.rename"]},
+    {"before": ["<leader>","v","r","r"], "commands": ["editor.action.referenceSearch.trigger"]},
+    {"before": ["<leader>","v","a","r"], "commands": ["references-view.findReferences"]},
+    
+    // Navigation
+    {"before": ["ctrl+j"], "commands": ["workbench.action.previousEditor"]},
+    {"before": ["ctrl+k"], "commands": ["workbench.action.nextEditor"]},
+    
+    // Back + Forward
+    {"before": ["<leader>","B",], "commands": ["workbench.action.navigateBack"]}, 
+    {"before": ["<leader>","b"], "commands": ["workbench.action.navigateLast"]},
+    {"before": ["<leader>","f"], "commands": ["workbench.action.navigateForward"]},
+
+    // Finders
+    {"before": ["<leader>","p","s"], "commands": ["actions.find"]},
+    {"before": ["<leader>","p","f"], "commands": ["workbench.action.quickOpen"]},
+    {"before": ["<leader>","p","l"], "commands": ["workbench.action.findInFiles"]},
+    {"before": ["<leader>","p","a"], "commands": ["workbench.action.showCommands"]},
+    {"before": ["<leader>","p","r"], "commands": ["editor.action.startFindReplaceAction"]},
+    
+    // Move Pane
+    {"before": ["<leader>","n","t"], "commands": ["workbench.action.terminal.toggleTerminal"]},
+    {"before": ["<leader>","n","w"], "commands": ["workbench.action.focusNextGroup"]},
+    {"before": ["<leader>","n","h"], "commands": ["workbench.action.focusLeftGroup"]},
+    {"before": ["<leader>","n","l"], "commands": ["workbench.action.focusRightGroup"]},
+    {"before": ["<leader>","n","j"], "commands": ["workbench.action.focusBelowGroup"]},
+    {"before": ["<leader>","n","k"], "commands": ["workbench.action.focusAboveGroup"]},
+    
+    // Split Pane
+    {"before": ["<leader>","n","v"], "commands": ["workbench.action.splitEditorRight"]},
+    {"before": ["<leader>","n","s"], "commands": ["workbench.action.splitEditorDown"]},
+    {"before": ["<leader>","n","c"], "commands": ["workbench.action.joinTwoGroups"]},
+    
+    // Close Pane
+    {"before": ["<leader>","n","q"], "commands": ["workbench.action.closeActiveEditor"]},
+    {"before": ["<leader>","n","o"], "commands": ["workbench.action.closeEditorsInOtherGroups"]},
+    
+    // Remaps
+    {"before": ["ctrl+a"], "after": ["G","V","g","g"]},
+    {"before": ["ctrl+shift+a"], "after": ["ctrl+a"]},
+    {"before": ["tab"], "after": [">",">"]},
+    {"before": ["shift+tab"], "after": ["<","<"]},
+    {"before": ["L"], "after": ["$"]},
+    {"before": ["H"], "after": ["^"]},
+],
+
+// Custom Theme
+// Default Opacity: 220/235
+// Lightest: 220, Light: 230, Dark: 240, Darkest: 240
+"glassit.alpha": 235,
+"workbench.preferredDarkColorTheme": "Default Dark+",
+"workbench.colorCustomizations": {
+    // Editor
+    // "editor.background": "#161b1f",
+    // "editorGroup.border": "#161b1f",
+    "editor.background": "#0e1112",
+    "editorGroup.border": "#0e1112",
+    // "editor.background": "#111417",
+    // "editorGroup.border": "#111417",
+    "editor.lineHighlightBorder": "#171a1d",
+    "editorLineNumber.dimmedForeground": "#536675",
+    "editorLineNumber.activeForeground": "#c4d2db",
+
+    // Activity Bar
+    // "activityBar.background": "#0e1112",
+    // "activityBar.border": "#0e1112",
+    "activityBar.background": "#161b1f",
+    "activityBar.border": "#161b1f",
+    "activityBar.foreground": "#e1ebf1",
+    "activityBar.inactiveForeground": "#536675",
+
+    // Side Bar
+    "sideBar.border": "#161b1f",
+    "sideBar.background": "#161b1f",
+    "sideBarSectionHeader.background": "#161b1f",
+    // "list.inactiveSelectionBackground": "#111417",
+    "list.inactiveSelectionBackground": "#20282e",
+    "list.hoverBackground": "#242C33",
+    // "sideBarSectionHeader.border": "#111417",
+    // "sideBar.background": "#111417",
+    // "sideBarSectionHeader.background": "#111417",
+    // "sideBarSectionHeader.border": "#0e1112",
+    // "sideBar.background": "#0e1112",
+    // "sideBarSectionHeader.background": "#0e1112",
+    // "sideBar.border": "#111417",
+    // "sideBar.border": "#0e1112",
+    "sideBarSectionHeader.border": "#161b1f",
+    "sideBar.foreground": "#c4d2db",
+    "sideBarTitle.foreground": "#e1ebf1",
+    "sideBarSectionHeader.foreground": "#c4d2db",
+
+    // Status Bar
+    // "statusBar.background": "#0e1112",
+    // "statusBar.border": "#0e1112",
+    "statusBar.background": "#161b1f",
+    "statusBar.border": "#161b1f",
+    "statusBar.foreground": "#879cad",
+    "statusBarItem.hoverForeground": "#ffffff",
+    "statusBarItem.hoverBackground": "#161b1f",
+    "statusbar.nofolderbackground": "#161b1f",
+    "statusbar.nofolderforeground": "#879cad",
+    "statusbar.nofolderborder": "#161b1f",
+    "statusBarItem.errorBackground": "#f35959",
+    "statusBarItem.errorForeground": "#0e1112",
+    "statusBar.debuggingBackground": "#9848f3",
+    "statusbar.debuggingforeground": "#0e1112",
+    "statusbar.debuggingborder": "#161b1f",
+    
+    // Title Bar
+    // "titleBar.activeBackground": "#0e1112",
+    // "titleBar.inactiveBackground": "#0e1112",
+    // "titleBar.border": "#0e1112", 
+    "titleBar.activeBackground": "#161b1f",
+    "titleBar.inactiveBackground": "#161b1f",
+    "titleBar.border": "#161b1f", 
+    "titleBar.activeForeground": "#aabfcf", 
+    "titleBar.inactiveForeground": "#879cad",
+    
+    // Tabs
+    // "tab.activeBackground": "#111417",
+    "tab.activeBackground": "#0e1112",
+    "tab.border": "#161b1f",
+    "tab.activeForeground": "#e1ebf1",
+    "tab.hoverBackground": "#242C33",
+    "tab.inactiveBackground": "#161b1f",
+    "tab.inactiveForeground": "#a4b0bb",
+    "editorGroupHeader.tabsBackground": "#161b1f",
+    // "tab.inactiveBackground": "#0A0C0D",
+    // "tab.activeBackground": "#161b1f",
+    
+    // Panel
+    // "terminal.background": "#111417",
+    "terminal.background": "#0e1112",
+    "panel.background": "#161b1f",
+    "panel.border": "#161b1f",
+    "panelTitle.inactiveForeground": "#879cad",
+    "panelTitle.activeForeground": "#e1ebf1",
+
+    // Input
+    "input.background": "#29343d",
+    "input.foreground": "#e1ebf1",
+    
+    // Dropdown
+    // "quickInput.background": "#111417",
+    "quickInput.background": "#0e1112",
+    "quickInputList.focusBackground": "#29343d",
+    "quickInput.border": "#35424d",
+    // "editorWidget.background": "#111417",
+    "editorWidget.background": "#0e1112",
+    "editorWidget.border": "#35424d",
+    "editorSuggestWidget.selectedBackground": "#0068bd96",
+    
+    // Menu
+    "menu.border": "#35424d",
+    "menu.background": "#161b1f",
+    "menu.selectionBackground": "#29343d",
+    "menubar.selectionForeground": "#ffffff",
+
+    // Notifications
+    "notification.background": "#161b1f",
+    "notification.foreground": "#e1ebf1",
+},
+}

@@ -1,0 +1,112 @@
+// Place your key bindings in this file to override the defaults
+
+[
+// Toggle Vim
+{ "key": "ctrl+shift+a", "command": "toggleVim" },
+{ "key": "ctrl+shift+a", "command": "runCommands", 
+  "args": { "commands": [
+          { "command": "toggleVim" },
+          { "command": "type", "args": { "text": "<Esc>" } }
+  ] }, "when": "!vim.active && editorTextFocus" },
+{ "key": "ctrl+shift+q", "command": "toggleVim" },
+{ "key": "ctrl+shift+q", "command": "runCommands", 
+  "args": { "commands": [
+          { "command": "toggleVim" },
+          { "command": "type", "args": { "text": "<Esc>" } }
+  ] }, "when": "!vim.active && editorTextFocus" },
+{ "key": "ctrl+alt+v", "command": "toggleVim" },
+{ "key": "ctrl+alt+v", "command": "runCommands",
+  "args": { "commands": [
+          { "command": "toggleVim" },
+          { "command": "type", "args": { "text": "<Esc>" } }
+  ] }, "when": "!vim.active && editorTextFocus" },
+{ "key": "alt+v", "command": "toggleVim" },
+{ "key": "alt+v", "command": "runCommands", 
+  "args": { "commands": [
+          { "command": "toggleVim" },
+          { "command": "type", "args": { "text": "<Esc>" } }
+  ] }, "when": "!vim.active && editorTextFocus" },
+
+// Toggle Menu/Bars
+{ "key": "ctrl+;", "command": "workbench.action.terminal.toggleTerminal" },
+{ "key": "ctrl+alt+p", "command": "workbench.action.togglePanel" },
+{ "key": "ctrl+n ctrl+m", "command": "workbench.action.toggleMenuBar" },
+{ "key": "ctrl+m", "command": "workbench.action.toggleSidebarVisibility" },
+{ "key": "ctrl+alt+m", "command": "workbench.action.toggleStatusbarVisibility" },
+{ "key": "ctrl+shift+m", "command": "workbench.action.toggleActivityBarVisibility" },
+{ "key": "ctrl+alt+shift+m", "command": "toggle", "when": "editorTextFocus",
+  "args": { "id": "toggleMinimap", "value": [
+          { "editor.minimap.enabled": true },
+          { "editor.minimap.enabled": false } ] } },
+{ "key": "ctrl+t", "command": "toggle",
+  "args": { "id": "toggleTabs", "value": [
+          { "workbench.editor.showTabs": "single" },
+          { "workbench.editor.showTabs": "multiple" } ] } },
+{ "key": "ctrl+shift+z", "command": "runCommands", 
+  "args": { "commands": [
+          { "command": "workbench.action.toggleMenuBar" },
+          { "command": "workbench.action.toggleSidebarVisibility" },
+          { "command": "workbench.action.toggleStatusbarVisibility" },
+          { "command": "workbench.action.toggleActivityBarVisibility" },
+          { "command": "toggle", "when": "editorTextFocus",
+            "args": { "id": "Zen", "value": [
+                    { "editor.minimap.enabled": true,  "workbench.editor.showTabs": "single"},
+                    { "editor.minimap.enabled": false, "workbench.editor.showTabs": "multiple"},
+] } }, ] } },
+
+// Navigation
+{ "key": "alt+b", "command": "workbench.action.navigateback" },
+{ "key": "ctrl+b", "command": "workbench.action.navigateLast" },
+{ "key": "alt+f", "command": "workbench.action.navigateforward" },
+
+// Move Tabs
+{ "key": "ctrl+shift+j", "command": "workbench.action.previousEditor" },
+{ "key": "ctrl+shift+k", "command": "workbench.action.nextEditor" },
+{ "key": "ctrl+alt+j", "command": "workbench.action.moveEditorLeftInGroup"},
+{ "key": "ctrl+alt+k", "command": "workbench.action.moveEditorRightInGroup"},
+{ "key": "ctrl+j", "command": "workbench.action.previousEditor" },
+{ "key": "ctrl+shift+w", "command": "workbench.action.closeGroup" },
+
+// Move Lines
+{ "key": "alt+j", "command": "editor.action.moveLinesDownAction", "when": "editorTextFocus"},
+{ "key": "alt+k", "command": "editor.action.moveLinesUpAction", "when": "editorTextFocus"},
+
+// Scrolling
+{ "key": "alt+j", "command": "workbench.action.quickOpenNavigateNext", "when": "inQuickOpen" },
+{ "key": "alt+k", "command": "workbench.action.quickOpenNavigatePrevious", "when": "inQuickOpen" },
+{ "key": "alt+j", "command": "list.focusDown", "when": "listFocus && !inputFocus && !treestickyScrollFocused" },
+{ "key": "alt+k", "command": "list.focusUp", "when": "listFocus && !inputFocus && !treestickyScrollFocused" },
+
+// Suggestions
+{ "key": "enter", "command": "editor.action.inlineSuggest.commit",
+  "when": "inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible" },
+{ "key": "Shift+enter", "command": "editor.action.triggerSuggest", "when": "editorTextFocus" },
+{ "key": "alt+j", "command": "selectNextSuggestion", "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus" },
+{ "key": "alt+k", "command": "selectPrevSuggestion", "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus" },
+{ "key": "tab",   "command": "selectNextSuggestion", "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus" },
+{ "key": "shift+tab", "command": "selectPrevSuggestion", "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus" },
+
+// Focus
+{ "key": "alt+n alt+w", "command": "workbench.action.focusPreviousPart" },
+{ "key": "alt+n alt+h", "command": "workbench.action.focusPreviousPart" },
+{ "key": "alt+n alt+k", "command": "workbench.action.focusPreviousPart" },
+{ "key": "alt+n alt+l", "command": "workbench.action.focusNextPart" },
+{ "key": "alt+n alt+j", "command": "workbench.action.focusNextPart" },
+
+// Glassit
+{ "key": "ctrl+alt+s", "command": "glassit.maximize" },
+{ "key": "ctrl+alt+x", "command": "glassit.minimize" },
+// { "key": "ctrl+alt+x", "command": "glassit.maximize", "when": "glassit.minimized" },
+
+// Remove Keybindings
+{ "key": "ctrl+shift+a", "command": "-notification.acceptPrimaryAction",
+  "when": "notificationFocus || notificationToastsVisible" },
+{ "key": "ctrl+shift+w", "command": "-workbench.action.closeWindow" },
+{ "key": "ctrl+k ctrl+shift+w", "command": "-workbench.action.closeAllGroups" },
+{ "key": "ctrl+p", "command": "-extension.vim_ctrl+p",
+  "when": "editorTextFocus && vim.active && vim.use<C-p> && !inDebugRepl || vim.active && vim.use<C-p> && !inDebugRepl && vim.mode == 'CommandlineInProgress' || vim.active && vim.use<C-p> && !inDebugRepl && vim.mode == 'SearchInProgressMode'" },
+{ "key": "ctrl+e", "command": "-extension.vim_ctrl+e",
+  "when": "editorTextFocus && vim.active && vim.use<C-e> && !inDebugRepl" },
+{ "key": "tab", "command": "-editor.action.inlineSuggest.commit",
+  "when": "inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible" },
+]
