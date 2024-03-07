@@ -31,3 +31,5 @@ vim.opt.clipboard= "unnamed,unnamedplus"
 
 vim.opt.foldlevelstart= 99
 vim.opt.foldmethod= "indent"
+
+vim.o.shell= "pwsh"
