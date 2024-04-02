@@ -1,4 +1,8 @@
 {
+// Paths
+"settingsPath": "~/.config/vscode/settings.json",
+"keybindingsPath": "~/.config/vscode/keybindings.json",
+
 // Default Settings
 "security.allowedUNCHosts": [ "wsl.localhost" ],
 "editor.unicodeHighlight.invisibleCharacters": false,

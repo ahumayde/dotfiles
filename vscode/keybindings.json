@@ -55,9 +55,9 @@
 ] } }, ] } },
 
 // Navigation
-{ "key": "alt+b", "command": "workbench.action.navigateback" },
+{ "key": "alt+b", "command": "workbench.action.navigateBack" },
 { "key": "ctrl+b", "command": "workbench.action.navigateLast" },
-{ "key": "alt+f", "command": "workbench.action.navigateforward" },
+{ "key": "alt+f", "command": "workbench.action.navigateForward" },
 
 // Move Tabs
 { "key": "ctrl+shift+j", "command": "workbench.action.previousEditor" },
@@ -65,6 +65,8 @@
 { "key": "ctrl+alt+j", "command": "workbench.action.moveEditorLeftInGroup"},
 { "key": "ctrl+alt+k", "command": "workbench.action.moveEditorRightInGroup"},
 { "key": "ctrl+j", "command": "workbench.action.previousEditor" },
+{ "key": "ctrl+j", "command": "workbench.action.previousPanelView", "when": "panelFocus" },
+{ "key": "ctrl+k", "command": "workbench.action.nextPanelView", "when": "panelFocus" },
 { "key": "ctrl+shift+w", "command": "workbench.action.closeGroup" },
 
 // Move Lines
@@ -76,11 +78,54 @@
 { "key": "alt+k", "command": "workbench.action.quickOpenNavigatePrevious", "when": "inQuickOpen" },
 { "key": "alt+j", "command": "list.focusDown", "when": "listFocus && !inputFocus && !treestickyScrollFocused" },
 { "key": "alt+k", "command": "list.focusUp", "when": "listFocus && !inputFocus && !treestickyScrollFocused" },
+{ "key": "alt+j", "command": "workbench.action.terminal.focusNext",
+  "when": "terminalFocus && terminalHasBeenCreated && !terminalEditorFocus || terminalFocus && terminalProcessSupported && !terminalEditorFocus" },
+{ "key": "alt+k", "command": "workbench.action.terminal.focusPrevious",
+  "when": "terminalFocus && terminalHasBeenCreated && !terminalEditorFocus || terminalFocus && terminalProcessSupported && !terminalEditorFocus" },
+
+// Explorer
+{ "key": "a", "command": "explorer.newFile", "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus" },
+{ "key": "shift+a", "command": "explorer.newFolder", "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus" },
+{ "key": "d", "command": "deleteFile", "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !inputFocus" },
+{ "key": "r", "command": "renameFile", "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !inputFocus" },
+{ "key": "f", "command": "workbench.action.quickOpen", "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !inputFocus" },
+{ "key": "y", "command": "filesExplorer.copy", "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus" },
+{ "key": "x", "command": "filesExplorer.cut", "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus" },
+{ "key": "p", "command": "filesExplorer.paste", "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus" },
+{ "key": "u", "command": "undo", "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus" },
+  
+// Terminal/Panel
+{ "key": "ctrl+shift+;", "command": "workbench.action.terminal.new",
+"when": "terminalProcessSupported || terminalWebExtensionContributedProfile" },
+{ "key": "ctrl+shift+w", "command": "runCommands", "args": { "commands": [
+        { "command": "workbench.action.terminal.killActiveTab", },
+        { "command": "workbench.action.terminal.focus" } ], },
+  "when": "terminalHasBeenCreated && terminalFocus || terminalIsOpen && terminalFocus|| terminalProcessSupported && terminalFocus" },
+
+{ "key": "ctrl+alt+;", "command": "workbench.action.terminal.focusTabs",
+"when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported" }, 
+{ "key": "ctrl+alt+;", "command": "workbench.action.terminal.focus",
+  "when": "terminalTabsFocus && terminalHasBeenCreated || terminalTabsFocus && terminalProcessSupported" }, 
+{ "key": "d", "command": "workbench.action.terminal.killActiveTab",
+  "when": "terminalHasBeenCreated && terminalTabsFocus || terminalIsOpen && terminalTabsFocus || terminalProcessSupported && terminalTabsFocus" },
+{ "key": "a", "command": "runCommands", "args": { "commands": [
+        { "command": "workbench.action.terminal.new" },
+        { "command": "workbench.action.terminal.focusTabs" } ] },
+  "when": "terminalHasBeenCreated && terminalTabsFocus || terminalIsOpen && terminalTabsFocus || terminalProcessSupported && terminalTabsFocus" },
+{ "key": "s", "command": "runCommands", "args": { "commands": [
+        { "command": "workbench.action.terminal.split" },
+        { "command": "workbench.action.terminal.focusTabs" } ] },
+  "when": "terminalHasBeenCreated && terminalTabsFocus || terminalIsOpen && terminalTabsFocus || terminalProcessSupported && terminalTabsFocus" },
+
+{ "key": "alt+l", "command": "workbench.action.terminal.focusNextPane", "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported" },
+{ "key": "alt+h", "command": "workbench.action.terminal.focusPreviousPane", "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported" },
+{ "key": "alt+n alt+s", "command": "workbench.action.terminal.split",
+  "when": "terminalFocus && terminalProcessSupported || terminalFocus && terminalWebExtensionContributedProfile" },
 
 // Suggestions
-{ "key": "enter", "command": "editor.action.inlineSuggest.commit",
+{ "key": "shift+enter", "command": "editor.action.triggerSuggest", "when": "editorTextFocus" },
+{ "key": "shift+enter", "command": "editor.action.inlineSuggest.commit",
   "when": "inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible" },
-{ "key": "Shift+enter", "command": "editor.action.triggerSuggest", "when": "editorTextFocus" },
 { "key": "alt+j", "command": "selectNextSuggestion", "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus" },
 { "key": "alt+k", "command": "selectPrevSuggestion", "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus" },
 { "key": "tab",   "command": "selectNextSuggestion", "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus" },
@@ -109,4 +154,8 @@
   "when": "editorTextFocus && vim.active && vim.use<C-e> && !inDebugRepl" },
 { "key": "tab", "command": "-editor.action.inlineSuggest.commit",
   "when": "inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible" },
+{ "key": "ctrl+shift+u", "command": "platformio-ide.upload",
+  "when": "pioProjectReady && pioProjectTasksReady" },
+{ "key": "ctrl+alt+u", "command": "-platformio-ide.upload",
+  "when": "pioProjectReady && pioProjectTasksReady" },
 ]
