@@ -90,7 +90,7 @@
           "background": "#18354c",
           "foreground": "#F9F1A5",
           "leading_diamond": "\ue0b6",
-          "trailing_diamond": "<transparent>\ue0b2",
+          "trailing_diamond": "<#002030,#18354c>\ue0b2",
           "properties": {
             "linux": "\ue712",
             "macos": "\ue711",
@@ -103,7 +103,7 @@
         {
           "background": "#18354c",
           "foreground": "#F9F1A5",
-          "leading_diamond": "<#18354c,#001b26>\ue0b2",
+          "leading_diamond": "<#18354c,#002030>\ue0b2",
           "properties": {
             "time_format": "_2,15:04"
           },

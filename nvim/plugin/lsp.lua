@@ -4,8 +4,8 @@ local lspconfig = require("lspconfig")
 lsp.preset("recommended")
 
 lsp.ensure_installed({
-    'tsserver',
-    'eslint',
+    -- 'tsserver',
+    -- 'eslint',
     'rust_analyzer',
 })
 
@@ -96,26 +96,26 @@ local warnings = {
     -- 'F405', -- 'foo.bar' may be undefined, or defined from star imports
 }
 
-lspconfig.pylsp.setup {
-    settings = {
-        pylsp = {
-            plugins = {
-                pyflakes = {
-                    enabled = false,
-                },
-                flake8 = {
-                    ignore = warnings,
-                },
-                pycodestyle = {
-                    ignore = warnings,
-                },
-                pydocstyle = {
-                    ignore = warnings,
-                },
-                pylint = {
-                    ignore = warnings,
-                },
-            },
-        },
-    },
-}
+-- lspconfig.pylsp.setup {
+--     settings = {
+--         pylsp = {
+--             plugins = {
+--                 pyflakes = {
+--                     enabled = false,
+--                 },
+--                 flake8 = {
+--                     ignore = warnings,
+--                 },
+--                 pycodestyle = {
+--                     ignore = warnings,
+--                 },
+--                 pydocstyle = {
+--                     ignore = warnings,
+--                 },
+--                 pylint = {
+--                     ignore = warnings,
+--                 },
+--             },
+--         },
+--     },
+-- }
