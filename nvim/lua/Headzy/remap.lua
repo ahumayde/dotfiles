@@ -1,12 +1,21 @@
 vim.g.mapleader = " "
 vim.g.fsharp_map_fsisendline = "<C-s>"
--- vim.api.nvim_del_keymap("t","<S-Tab>")
+-- vim.api.nvim_del_keymap("n","jk")
 
 -- SAVING
 vim.keymap.set("n", "<A-w>", vim.cmd.w)
 vim.keymap.set("n", "<A-q>", vim.cmd.q)
 vim.keymap.set("n", "<leader>w", vim.cmd.w)
 vim.keymap.set("n", "<leader>quit", ":qa!<CR>")
+
+-- Escape
+vim.keymap.set("i", "<A-i>", "<Esc>l")
+vim.keymap.set("i", "<S-CR>", "<Esc>l")
+vim.keymap.set("i", "<S-Tab>", "<Esc>l")
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
+vim.keymap.set("t", "<A-i>", "<C-\\><C-n>")
+vim.keymap.set("t", "<S-CR>", "<C-\\><C-n><C-w>q")
+vim.keymap.set("t", "<S-Esc>", "<C-\\><C-n><C-w>q")
 
 -- CHANGE BUFFER
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
@@ -25,9 +34,6 @@ vim.keymap.set("n", "<leader>tj", "<C-w>s<C-w>j:term<CR>:res 10<CR>i")
 vim.keymap.set("n", "<leader>tv", "<C-w>v<C-w>l:term<CR>i")
 vim.keymap.set("n", "<leader>tl", "<C-w>v<C-w>l:term<CR>i")
 vim.keymap.set("n", "<leader>th", "<C-w>v:term<CR>i")
-vim.keymap.set("t", "<S-Esc>", "<C-\\><C-n><C-w>q")
-vim.keymap.set("t", "<S-CR>", "<C-\\><C-n><C-w>q")
-vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
 vim.keymap.set("n", "<leader>r", ":res 5<CR>")
 vim.keymap.set("n", "<leader>r1", ":res 5<CR>")
 vim.keymap.set("n", "<leader>r2", ":res 10<CR>")
@@ -66,7 +72,6 @@ vim.keymap.set("n", "<Tab>", ">>")
 vim.keymap.set("x", "<Tab>", ">gv")
 
 -- SHIFT TAB
-vim.keymap.set("i", "<S-Tab>", "<C-d>")
 vim.keymap.set("n", "<S-Tab>", "<<")
 vim.keymap.set("x", "<S-Tab>", "<gv")
 

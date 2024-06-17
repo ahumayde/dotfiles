@@ -25,6 +25,8 @@ vim.opt.scrolloff= 4
 vim.opt.signcolumn= "yes"
 vim.opt.isfname:append("@-@")
 
+vim.g.neotree_show_hidden = 1
+
 vim.opt.updatetime= 50
 
 vim.opt.clipboard= "unnamed,unnamedplus"
