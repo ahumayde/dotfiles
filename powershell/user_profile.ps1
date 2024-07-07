@@ -1,11 +1,13 @@
 # Config Term
 oh-my-posh init pwsh --config ~/.config/term/theme.omp.json | Invoke-Expression
 
+$git_bin = "C:\Program Files\Git\usr\bin"
 # Environment Variables
 $CONFIG = "$PROFILE"
 $NVIM_CONFIG = "$env:USERPROFILE\.config\nvim\init.lua"
 $env:NVIM_INIT_FILE = "$env:USERPROFILE\.config\nvim\init.lua"
 $env:XDG_CONFIG_HOME = "$env:USERPROFILE\.config\"
+$env:PATH = "$env:PATH;$git_bin"
 # $env:NVIM_RUNTIME_DIR = "$env:USERPROFILE\.config\nvim"
 # $PROFILE = "$env:USERPROFILE\.config\powershell\user_profile.ps1"
 
@@ -118,19 +120,20 @@ function ls-less {
     $dir  = "`t`tDir `t`t"
     Get-ChildItem `
     | Select-Object @{ Name=$mode; Expression={ if ($_.PSIsContainer) {$dir} else {$file} } }, Name `
-    | &  'C:\Users\AHumayde\AppData\Local\Programs\Git\usr\bin\less.exe' 
+    | &  "$git_bin\less.exe"
 }
 
 # Alias
 # Set-Alias vim nvim
 Set-Alias celar clear
-Set-Alias py 'C:\Users\AHumayde\AppData\Local\Microsoft\WindowsApps\python3.12.exe'
-Set-Alias python 'C:\Users\AHumayde\AppData\Local\Microsoft\WindowsApps\python3.12.exe'
+Set-Alias py "$HOMe\AppData\Local\Microsoft\WindowsApps\python3.12.exe"
+Set-Alias python "$HOME\AppData\Local\Microsoft\WindowsApps\python3.12.exe"
 Set-Alias omp oh-my-posh
 Set-Alias ompi Invoke-OhMyPoshInit
-Set-Alias less 'C:\Users\AHumayde\AppData\Local\Programs\Git\usr\bin\less.exe'
-Set-Alias la dir | Format-Wide -Column 4 
+Set-Alias less "$git_bin\less.exe"
+# Set-Alias la dir | Format-Wide -Column 4 
 Set-Alias ll ls-less
+# Set-Alias ll dir | Format-Table Name -AutoSize
 Set-Alias g git
 Set-Alias pip pip3
 Set-Alias touch New-Item
