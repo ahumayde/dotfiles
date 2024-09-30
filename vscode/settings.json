@@ -13,7 +13,7 @@
 "editor.tabSize": 4,
 "editor.lineNumbers": "relative",
 "editor.insertSpaces": true,
-"editor.minimap.enabled": true,
+"editor.minimap.enabled": false,
 "editor.guides.indentation": false,
 "window.titleBarStyle": "custom",
 "workbench.editor.showTabs": "multiple",
@@ -38,13 +38,14 @@
     {"before": ["tab"], "after": [">","g","v"]},
     {"before": ["shift+tab"], "after": ["<","g","v"]}, ],
 "vim.normalModeKeyBindingsNonRecursive": [
-    {"before": ["ctrl+w"], "commands": ["workbench.action.closeActiveEditor"]},
+    // {"before": ["ctrl+w"], "commands": ["workbench.action.closeActiveEditor"]},
     {"before": ["ctrl+d"], "after": ["z","z","ctrl+d"]},
     {"before": ["ctrl+u"], "after": ["z","z","ctrl+u"]},
     {"before": ["#"], "after": ["*","z","z"]},
     {"before": ["*"], "after": ["#","z","z"]}, ],
 "vim.normalModeKeyBindings": [
     // Commands
+
     // Menu/ File Explorer ctrl+shift+e
     {"before": ["<leader>","m"], "commands": ["workbench.action.toggleSidebarVisibility"]},
     {"before": ["<leader>","q","u","i","t"], "commands": ["toggleVim"]},
@@ -61,10 +62,11 @@
     
     // Back + Forward
     {"before": ["<leader>","B",], "commands": ["workbench.action.navigateBack"]}, 
-    {"before": ["<leader>","b"], "commands": ["workbench.action.navigateLast"]},
-    {"before": ["<leader>","f"], "commands": ["workbench.action.navigateForward"]},
+    {"before": ["<leader>","b"] , "commands": ["workbench.action.navigateLast"]},
+    {"before": ["<leader>","f"] , "commands": ["workbench.action.navigateForward"]},
 
     // Finders
+    {"before": ["ctrl+f"]          , "commands": ["actions.find"]},
     {"before": ["<leader>","p","s"], "commands": ["actions.find"]},
     {"before": ["<leader>","p","f"], "commands": ["workbench.action.quickOpen"]},
     {"before": ["<leader>","p","l"], "commands": ["workbench.action.findInFiles"]},
@@ -88,10 +90,14 @@
     {"before": ["<leader>","n","q"], "commands": ["workbench.action.closeActiveEditor"]},
     {"before": ["<leader>","n","o"], "commands": ["workbench.action.closeEditorsInOtherGroups"]},
     
+    // Undo + Redo
+    {"before": ["u"]     , "commands": ["undo"]},
+    {"before": ["ctrl+r"], "commands": ["redo"]},
+
     // Remaps
-    {"before": ["ctrl+a"], "after": ["G","V","g","g"]},
+    {"before": ["ctrl+a"]      , "after": ["G","V","g","g"]},
     {"before": ["ctrl+shift+a"], "after": ["ctrl+a"]},
-    {"before": ["tab"], "after": [">",">"]},
+    {"before": ["tab"]      , "after": [">",">"]},
     {"before": ["shift+tab"], "after": ["<","<"]},
     {"before": ["L"], "after": ["$"]},
     {"before": ["H"], "after": ["^"]},
@@ -100,7 +106,7 @@
 // Custom Theme
 // Default Opacity: 220/235
 // Lightest: 220, Light: 230, Dark: 240, Darkest: 240
-"glassit.alpha": 235,
+"glassit.alpha": 255,
 "workbench.preferredDarkColorTheme": "Default Dark+",
 "workbench.colorCustomizations": {
     // Editor
@@ -213,4 +219,15 @@
     "notification.background": "#161b1f",
     "notification.foreground": "#e1ebf1",
 },
+"FSharp.suggestGitignore": false,
+"explorer.confirmDelete": false,
+"diffEditor.hideUnchangedRegions.enabled": true,
+"github.copilot.editor.enableAutoCompletions": true,
+"gitlens.mode.active": "zen",
+"workbench.layoutControl.enabled": false,
+"window.commandCenter": false,
+"window.customTitleBarVisibility": "never",
+"workbench.statusBar.visible": false,
+"workbench.activityBar.location": "hidden",
+"window.menuBarVisibility": "compact",
 }
