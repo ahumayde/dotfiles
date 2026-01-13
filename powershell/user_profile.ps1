@@ -126,7 +126,7 @@ function ls-less {
 # Alias
 # Set-Alias vim nvim
 Set-Alias celar clear
-Set-Alias py "$HOMe\AppData\Local\Microsoft\WindowsApps\python3.12.exe"
+Set-Alias py "$HOME\AppData\Local\Microsoft\WindowsApps\python3.12.exe"
 Set-Alias python "$HOME\AppData\Local\Microsoft\WindowsApps\python3.12.exe"
 Set-Alias omp oh-my-posh
 Set-Alias ompi Invoke-OhMyPoshInit
@@ -137,5 +137,5 @@ Set-Alias ll ls-less
 Set-Alias g git
 Set-Alias pip pip3
 Set-Alias touch New-Item
-Set-Alias grep findstr
+# Set-Alias grep findstr
 Set-Alias ls Get-UnixLikeDirectoryListing
