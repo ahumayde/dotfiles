@@ -356,6 +356,7 @@ function Run-ConfigSetup {
             Write-Status "You are running Windows PowerShell 5."
             Write-Status "This script will install PowerShell 7 (pwsh)."
             Write-Status "NOTE: After installation, please restart your terminal using 'pwsh'."
+            return
         }
 
         Setup-Tools
