@@ -331,27 +331,49 @@ function Setup-SymLinks {
     Symlink-WindowsTerminalSettings
 }
 
-function Run-Config-Setup {
+function Run-ConfigSetup {
+    $Title = "Configuration Installation & Setup" 
+    $Message = "Would you like to run the installation and setup process?"
 
+    $Yes = New-Object System.Management.Automation.Host.ChoiceDescription "&Yes", "Runs the installation and setup process."
+    $No = New-Object System.Management.Automation.Host.ChoiceDescription "&No", "Ends the script."
+    $Options = [System.Management.Automation.Host.ChoiceDescription[]]($Yes, $No)
+
+    $Result = $host.UI.PromptForChoice($Title, $Message, $Options, 0)
+    if ($Result -eq 0) {
+        # 1. Admin Check
+        if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
+            Write-Status "This script requires Administrator privileges to install packages and modify PATH."
+            Write-Status "Close this window and reopen PowerShell using 'Run as Administrator'."
+            Read-Host "Press Enter to confirm and exit"
+            return
+        }
+
+        Install-WingetPackages
+
+        # 2. PowerShell Version Check
+        if ($PSVersionTable.PSVersion.Major -lt 7) {
+            Write-Status "You are running Windows PowerShell 5."
+            Write-Status "This script will install PowerShell 7 (pwsh)."
+            Write-Status "NOTE: After installation, please restart your terminal using 'pwsh'."
+        }
+
+        Setup-Tools
+        Setup-Dotfiles
+        Setup-NerdFonts
+        Setup-SymLinks
+
+        Write-Status "Setup Complete!"
+        Write-Status "Please restart your terminal (or log out and back in) to ensure all PATH changes take effect."
+        if (Get-Command pwsh -ErrorAction SilentlyContinue) {
+            Write-Status "Type 'pwsh' to switch to PowerShell 7."
+        }
+    }
 }
 
 # -----------------------------------------------------------------------------
 # Execution Flow
 # -----------------------------------------------------------------------------
 
-# 1. Admin Check
-if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
-    Write-Status "This script requires Administrator privileges to install packages and modify PATH."
-    Write-Status "Close this window and reopen PowerShell using 'Run as Administrator'."
-    Read-Host "Press Enter to confirm and exit"
-    return
-}
-
-# 2. PowerShell Version Check
-if ($PSVersionTable.PSVersion.Major -lt 7) {
-    Write-Status "You are running Windows PowerShell 5."
-    Write-Status "This script will install PowerShell 7 (pwsh)."
-    Write-Status "NOTE: After installation, please restart your terminal using 'pwsh'."
-}
-
-# 3. Run Configuration Steps
+# Run Configuration Steps
+Run-ConfigSetup
