@@ -1,18 +1,20 @@
 <# .SYNOPSIS
-    Windows Environment Setup Script
-    Equivalent to the provided Bash dotfiles setup, adapted for Windows/PowerShell.
+    Windows/Powershell Environment Configuration Script
 #>
 
 # -----------------------------------------------------------------------------
 # Variable Declarations
 # -----------------------------------------------------------------------------
 
-$HomeDir = $HOME
-$ConfigDir = "$HomeDir\.config"
-$NvimDir = "$ConfigDir\nvim"
-$ScriptsDir = "$ConfigDir\scripts"  # <--- This will be added to PATH
+$ConfigDir = "$HOME\.config"
+$ScriptsDir = "$ConfigDir\scripts"
+$PowershellDir = "$ConfigDir\powershell"
+$PowershellProfile = "$PowershellDir\user_profile.ps1"
+$WindowsTerminalSettings = "$ConfigDir\term\settings.json"
+$NerdFontScriptPath = "$ScriptsDir\Invoke-NerdFontInstaller.ps1"
+
 $DotfilesRepo = "https://github.com/ahumayde/dotfiles"
-$DotfilesSource = "$HOME\dotfiles"  # Where we download the source
+$DotfilesSource = "$HOME/dotfiles"  # Where we download the source
 
 # Winget Package IDs
 $WingetIds = @(
@@ -24,10 +26,23 @@ $WingetIds = @(
     "RamenSoftware.Windhawk",     # Windhawk
     "JanDeDobbeleer.OhMyPosh",    # Oh My Posh
     "OpenJS.NodeJS.LTS",          # Node JS (Required for Neovim/LSP)
-    "Python.Python.3.10",         # Python 3.10
+    "Python.Python.3.14",         # Python 3.14
     "BurntSushi.ripgrep.MSVC",    # Ripgrep (Required for Telescope)
-    "Zig.Zig"                     # Zig Compiler (Often needed for Treesitter on Windows)
-#   "JesseDuffield.lazygit",      # LazyGit (Optional but recommended for LazyVim)
+    "zig.zig"                     # Zig Compiler (Often needed for Treesitter on Windows)
+    "JesseDuffield.lazygit"       # LazyGit (Optional but recommended for LazyVim)
+)
+
+# Binary Paths to add to Environment Path
+$TargetBinPaths = @(
+    "C:\Program Files\Git\bin",
+    "C:\Program Files\Git\Usr\bin",
+    "C:\Program Files\Neovim\bin"
+)
+
+# Windows Terminal Settings Paths
+$WindowsTerminalSettingsPaths = @(
+    "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json",
+    "$env:LOCALAPPDATA\Microsoft\Windows Terminal\settings.json"
 )
 
 # Nerd Font Installer Script
@@ -51,20 +66,37 @@ function Write-ErrorMsg {
 function Install-WingetPackages {
     Write-Status "Checking and Installing Winget Packages..."
 
-    # 1. Install Packages
+    # 1. Install Packages with User Confirmation
     foreach ($Id in $WingetIds) {
-        Write-Host "Processing: $Id" -NoNewline
-        $isInstalled = winget list -e --id $Id
+        Write-Host "Processing: [$Id]" -ForegroundColor Magenta -NoNewLine
+        $null = winget list -e --id $Id 2>$null
         if ($LASTEXITCODE -eq 0) {
             Write-Host " [Already Installed]" -ForegroundColor Green
+            continue
+        }
+
+        $Title = "Install `e[95m[$Id]" 
+        $Message = "This application is missing. Do you wish to install it?"
+        $Yes = New-Object System.Management.Automation.Host.ChoiceDescription "&Yes", "Installs $Id."
+        $No = New-Object System.Management.Automation.Host.ChoiceDescription "&No", "Skips this application."
+        $Options = [System.Management.Automation.Host.ChoiceDescription[]]($Yes, $No)
+
+        $Result = $host.UI.PromptForChoice($Title, $Message, $Options, 0)
+        if ($Result -eq 1) {
+            Write-Host "Skipping $Id..." -ForegroundColor Yellow
+            continue 
+        }
+
+        Write-Host "[Installing...]" -ForegroundColor Yellow
+        winget install --id $Id -e
+
+        if ($LASTEXITCODE -ne 0) {
+            Write-ErrorMsg "Failed to install $Id"
         } else {
-            Write-Host " [Installing...]" -ForegroundColor Yellow
-            winget install --id $Id -e
-            if ($LASTEXITCODE -ne 0) {
-                Write-ErrorMsg "Failed to install $Id"
-            }
+            Write-Host "[$Id Installed]" -ForegroundColor Green
         }
     }
+
     # 2. Refresh Environment Variables
     $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
 }
@@ -82,13 +114,12 @@ function Setup-Tools {
     }
 
     # 2. Add Binaries to Path (Persistently)
-    $TargetPaths = @("C:\Program Files\Git\bin", "C:\Program Files\Neovim\bin")
     $CurrentPath = [Environment]::GetEnvironmentVariable("Path", "User")
 
-    foreach ($Path in $TargetPaths) {
+    foreach ($Path in $TargetBinPaths) {
         if ($CurrentPath -notlike "*$Path*") {
-            Write-Status "Adding $Path to User Environment Path"
             [Environment]::SetEnvironmentVariable("Path", "$CurrentPath;$Path", "User")
+            Write-Host "Added $Path to User Environment Path"
         }
     }
 }
@@ -115,60 +146,64 @@ function Setup-Dotfiles {
         $SourcePath = $Item.FullName
         $TargetPath = "$ConfigDir\$TargetName"
 
-        Write-Host "`nProcessing: [$TargetName]" -ForegroundColor Magenta
+        Write-Host "Processing: [dotfiles\$TargetName]" -ForegroundColor Magenta -NoNewLine
 
         if (Test-Path $TargetPath) {
-            Write-Status "Existing configuration detected at $TargetPath"
-            $Choice = Read-Host "[S]kip, [B]ackup & Replace, [D]elete & Replace? [S/B/D]"
+            $Title = "File Conflict: Existing configuration detected at `e[94m$TargetPath"
+            $Message = "How do you want to handle the existing configuration?"
+            $Skip   = New-Object System.Management.Automation.Host.ChoiceDescription "&Skip", "Preserves the existing file."
+            $Backup = New-Object System.Management.Automation.Host.ChoiceDescription "&Backup & Replace", "Renames the old file before copying."
+            $Delete = New-Object System.Management.Automation.Host.ChoiceDescription "&Delete & Replace", "Deletes the old file before copying."
+            $Options = [System.Management.Automation.Host.ChoiceDescription[]]($Skip, $Backup, $Delete)
 
-            switch -Regex ($Choice) {
-                "[Bb]" { # Backup
+            $Result = $host.UI.PromptForChoice($Title, $Message, $Options, 0)
+            switch -Regex ($Result) {
+                1 { # Backup
                     $TimeStamp = Get-Date -Format "yyyyMMddHHmmss"
                     $BackupPath = "$TargetPath.bak.$TimeStamp"
 
-                    Write-Status "Backing up old config to $BackupPath"
+                    Write-Host "`e[32mBacking up old config to $BackupPath..."
                     Rename-Item -Path $TargetPath -NewName $BackupPath
 
-                    Write-Status "Copying $TargetName..."
+                    Write-Host "Copying $SourcePath..." -ForegroundColor Yellow
                     Copy-Item -Path $SourcePath -Destination $TargetPath -Recurse -Force
+                    Write-Host "$TargetPath `e[92m[Successfully Installed]"
                 }
-                "[Dd]" { # Delete
-                    Write-Status "Deleting old config..."
+                2 { # Delete
+                    Write-Host "Deleting old configurations..." -ForegroundColor Red
                     Remove-Item -Path $TargetPath -Recurse -Force
 
-                    Write-Status "Copying $TargetName..."
+                    Write-Host "Copying $SourcePath..." -ForegroundColor Yellow
                     Copy-Item -Path $SourcePath -Destination $TargetPath -Recurse -Force
+                    Write-Host "$TargetPath `e[92m[Successfully Installed]"
                 }
-                Default { # Skip
-                    Write-Status "Skipping $TargetName."
+                0 { # Skip (Default)
+                    Write-Host "Skipping $SourcePath..." -ForegroundColor Yellow
                 }
             }
         } else { # No conflict, just copy
-            Write-Status "No previous config found for $TargetName. Installing..."
+            Write-Host " [Installing...]" -Foreground Yellow
             Copy-Item -Path $SourcePath -Destination $TargetPath -Recurse -Force
+            Write-Host "$TargetPath `e[92m[Successfully Installed]`n"
         }
     }
 }
 
-function Setup-SymLinks {}
+function Setup-NerdFonts {
+    Write-Status "Configuring Nerd Fonts..." -NoNewLine
 
-function Install-NerdFonts {
-    Write-Status "Configuring Nerd Font Installer..."
-    
     # 1. Prepare Directory
     if (-not (Test-Path $ScriptsDir)) {
         New-Item -ItemType Directory -Force -Path $ScriptsDir | Out-Null
     }
 
     # 2. Download Script
-    $LocalScriptPath = "$ScriptsDir\Invoke-NerdFontInstaller.ps1"
-    try {
-        Invoke-WebRequest -Uri $NerdFontScriptUrl -OutFile $LocalScriptPath
-        Write-Status "Script saved to: $LocalScriptPath"
-    }
-    catch {
-        Write-ErrorMsg "Download failed."
-        return
+    if (-not (Test-Path $PROFILE)) {
+        try {
+            Invoke-WebRequest -Uri $NerdFontScriptUrl -OutFile $NerdFontScriptPath
+            Write-Host "Font installation script saved to: $NerdFontScriptPath"
+        }
+        catch { Write-ErrorMsg "Download failed."; return }
     }
 
     # 3. Add Alias function to Profile
@@ -179,18 +214,126 @@ function Install-NerdFonts {
     $ProfileContent = Get-Content $PROFILE -Raw -ErrorAction SilentlyContinue
     $AliasCode = "function install-nerdfonts { & '$LocalScriptPath' @args }"
 
+    Write-Host "Adding 'install-nerdfonts' command to PowerShell Profile..." -ForegroundColor Yellow
     if ($ProfileContent -notmatch "function install-nerdfonts") {
-        Write-Status "Adding 'install-nerdfonts' command to PowerShell Profile..."
-        Add-Content -Path $PROFILE -Value "# Setup Script: NerdFonts Shortcut"
+        Add-Content -Path $PROFILE -Value '`n# Setup Script: NerdFonts Shortcut'
         Add-Content -Path $PROFILE -Value $AliasCode
-        . $PROFILE
+        Write-Host "[install-nerdfonts Successfully Added]" -ForegroundColor Green
+        Write-Host "Reloading powershell profile..." -ForegroundColor Yellow
+        Write-Host "PowerShell $($PSVersionTable.PSVersion)"
+        $Stopwatch = [System.Diagnostics.Stopwatch]::StartNew(); . $PROFILE; $Stopwatch.Stop()
+        Write-Host "Loading personal and system profiles took $($Stopwatch.ElapsedMilliseconds)ms."
+        Write-Host "[Powershell Profile Reloaded]" -ForegroundColor Green -NoNewLine
     } else {
-        Write-Status "Shortcut 'install-nerdfonts' already exists in Profile."
+        Write-Host "[install-nerdfonts Successfully Added]" -ForegroundColor Green
+        Write-Host "Reloading powershell profile..." -ForegroundColor Yellow
+        Write-Host "PowerShell $($PSVersionTable.PSVersion)"
+        $Stopwatch = [System.Diagnostics.Stopwatch]::StartNew(); . $PROFILE; $Stopwatch.Stop()
+        Write-Host "Loading personal and system profiles took $($Stopwatch.ElapsedMilliseconds)ms."
+        Write-Host "[Powershell Profile Successfully Reloaded]" -ForegroundColor Green -NoNewLine
+        # Write-Host "Shortcut 'install-nerdfonts' already exists in Profile." -NoNewLine
     }
+    
+    $Title = "Install `e[95m[NerdFonts]"
+    $Message = "You can now use '`e[33minstall-nerdfonts `e[90m-Scope `e[37mAllUsers' to install NerdFonts. Would you like to run this now?"
+    $Yes = New-Object System.Management.Automation.Host.ChoiceDescription "&Yes", "Runs the command immediately."
+    $No  = New-Object System.Management.Automation.Host.ChoiceDescription "&No", "Skips this step."
+    $Options = [System.Management.Automation.Host.ChoiceDescription[]]($Yes, $No)
 
-    Write-Host "You can now type 'install-nerdfonts' from anywhere!" -ForegroundColor Green
+    $Result = $host.UI.PromptForChoice($Title, $Message, $Options, 0)
+    switch -Regex ($Result) {
+        0 { # Yes (Default)
+            Write-Host "Starting NerdFonts installation..." -ForegroundColor Yellow
+            install-nerdfonts -Scope AllUsers
+        }
+        1 { # No
+            Write-Host "Skipped NerdFonts installation." -ForegroundColor Gray
+        }
+    }
 }
 
+function Symlink-PowerShellProfiles {
+    Write-Status "Symbolically Linking All Powershell Profiles..."
+
+    # 1. Ensure ~/.config/powershell exists
+    if (-not (Test-Path $PowershellDir)) {
+        New-Item -ItemType Directory -Force -Path $PowershellDir | Out-Null
+    }
+
+    # 2. Ensure the unified profile file exists
+    if (-not (Test-Path $PowershellProfile)) {
+        New-Item -ItemType File -Force -Path $PowershellProfile | Out-Null
+    }
+
+    # 3. Collect all profile paths for both Windows PowerShell & PowerShell 7
+    $ProfilePaths = @()
+
+    # PowerShell 7 profiles
+    try {
+        $ProfilePaths += pwsh -NoProfile -Command '$PROFILE.AllUsersAllHosts'
+        $ProfilePaths += pwsh -NoProfile -Command '$PROFILE.AllUsersCurrentHost'
+        $ProfilePaths += pwsh -NoProfile -Command '$PROFILE.CurrentUserAllHosts'
+        $ProfilePaths += pwsh -NoProfile -Command '$PROFILE.CurrentUserCurrentHost'
+    } catch {
+        Write-ErrorMsg "Failed to add Powershell 7 profiles to symbolic link list"
+    }
+
+    # Remove duplicates and empty entries
+    $ProfilePaths = $ProfilePaths | Where-Object { $_ -and $_.Trim() -ne "" } | Select-Object -Unique
+
+    # 4. Replace each profile with a symbolic link
+    foreach ($Profile in $ProfilePaths) {
+        $ProfileDir = Split-Path $Profile
+
+        # Ensure directory exists
+        if (-not (Test-Path $ProfileDir)) {
+            New-Item -ItemType Directory -Force -Path $ProfileDir | Out-Null
+        }
+
+        # Remove existing profile file or link
+        if (Test-Path $Profile) { Remove-Item $Profile -Force }
+
+        # Create symbolic link
+        Write-Host "Creating SymLink: `e[38;5;99m$Profile `e[37m-> $PowershellProfile..."
+        New-Item -ItemType SymbolicLink -Path $Profile -Target $PowershellProfile | Out-Null
+    }
+
+    Write-Host "[PowerShell 7 profiles configured at `e[94m$PowershellProfile`e[92m]" -ForegroundColor Green
+}
+
+function Symlink-WindowsTerminalSettings {
+    Write-Status "Symbolically Linking Windows Terminal Settings"
+
+    # 1. Ensure unified file exists
+    if (-not (Test-Path $WindowsTerminalSettings)) {
+        New-Item -ItemType File -Force -Path $WindowsTerminalSettings | Out-Null
+    }
+
+    # 2. Create Symbolic Link to configuration file
+    $CreatedPaths = foreach ($Path in $WindowsTerminalSettingsPaths) {
+        if (Test-Path (Split-Path $Path)) {
+            if (Test-Path $Path) {
+                Remove-Item $Path -Force
+            }
+            Write-Host "Creating SymLink: `e[38;5;99m$Path `e[37m-> $WindowsTerminalSettings..."
+            New-Item -ItemType SymbolicLink -Path $Path -Target $WindowsTerminalSettings | Out-Null
+            $Path
+        }
+    }
+
+    if ($CreatedPaths) {
+        Write-Host "[Windows Terminal 'settings.json' configured at `e[94m$WindowsTerminalSettings`e[92m]" -ForegroundColor Green
+    }
+}
+
+function Setup-SymLinks {
+    Symlink-PowerShellProfiles
+    Symlink-WindowsTerminalSettings
+}
+
+function Run-Config-Setup {
+
+}
 
 # -----------------------------------------------------------------------------
 # Execution Flow
@@ -198,9 +341,10 @@ function Install-NerdFonts {
 
 # 1. Admin Check
 if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
-    Write-Warning "This script requires Administrator privileges to install packages and modify PATH."
-    Write-Warning "Please right-click and 'Run as Administrator'."
-    exit
+    Write-Status "This script requires Administrator privileges to install packages and modify PATH."
+    Write-Status "Close this window and reopen PowerShell using 'Run as Administrator'."
+    Read-Host "Press Enter to confirm and exit"
+    return
 }
 
 # 2. PowerShell Version Check
@@ -210,15 +354,4 @@ if ($PSVersionTable.PSVersion.Major -lt 7) {
     Write-Status "NOTE: After installation, please restart your terminal using 'pwsh'."
 }
 
-# 3. Run Steps
-Install-WingetPackages
-Setup-Tools
-Setup-Dotfiles
-Setup-SymLinks
-Install-NerdFonts
-
-Write-Status "Setup Complete!"
-Write-Status "Please restart your terminal (or log out and back in) to ensure all PATH changes take effect."
-if (Get-Command pwsh -ErrorAction SilentlyContinue) {
-    Write-Status "Type 'pwsh' to switch to PowerShell 7."
-}
+# 3. Run Configuration Steps

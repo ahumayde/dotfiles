@@ -71,7 +71,7 @@
       "alignment": "right",
       "segments": [
         {
-          "foreground": "#18354c",
+          "trailing_diamond": "\ue0b5",
           "foreground_templates": [
             "{{if eq \"Charging\" .State.String}}#b8e994{{end}}",
             "{{if eq \"Discharging\" .State.String}}#fff34e{{end}}",
