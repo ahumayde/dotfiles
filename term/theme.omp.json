@@ -105,7 +105,7 @@
           "foreground": "#F9F1A5",
           "leading_diamond": "<#18354c,#002030>\ue0b2",
           "properties": {
-            "time_format": "_2,15:04"
+            "time_format": "_2 15:04"
           },
           "style": "diamond",
           "template": " \uf073 {{ .CurrentDate | date .Format }} ",

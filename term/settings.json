@@ -55,32 +55,32 @@
             "keys": "ctrl+c"
         },
         {
-            "id": "Terminal.MoveTabForward",
-            "keys": "alt+shift+k"
-        },
-        {
             "id": "Terminal.DuplicatePaneAuto",
             "keys": "alt+shift+n"
         },
         {
-            "id": "User.sendInput.8882FD6D",
-            "keys": "shift+enter"
-        },
-        {
-            "id": "Terminal.DuplicatePaneAuto",
-            "keys": "alt+shift+d"
+            "id": "Terminal.MoveTabForward",
+            "keys": "alt+shift+k"
         },
         {
             "id": "Terminal.DuplicatePaneAuto",
             "keys": "alt+n"
         },
         {
-            "id": "Terminal.FindText",
-            "keys": "ctrl+shift+f"
+            "id": "Terminal.DuplicatePaneAuto",
+            "keys": "alt+shift+d"
+        },
+        {
+            "id": "User.sendInput.8882FD6D",
+            "keys": "shift+enter"
         },
         {
             "id": "Terminal.PasteFromClipboard",
             "keys": "ctrl+v"
+        },
+        {
+            "id": "Terminal.FindText",
+            "keys": "ctrl+shift+f"
         },
         {
             "id": "Terminal.QuakeMode",
@@ -220,7 +220,7 @@
                     "face": "CaskaydiaCove Nerd Font"
                 },
                 "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
-                "hidden": true,
+                "hidden": false,
                 "name": "Windows PowerShell",
                 "opacity": 75,
                 "padding": "10"
