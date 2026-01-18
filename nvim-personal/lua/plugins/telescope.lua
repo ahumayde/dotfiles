@@ -7,7 +7,7 @@ end
 return {
     {
         "nvim-telescope/telescope.nvim",
-        dependencies = { "plenary" },
+        dependencies = { "plenary.nvim" },
         config = function()
             local actions = require("telescope.actions")
             local builtin = require("telescope.builtin")

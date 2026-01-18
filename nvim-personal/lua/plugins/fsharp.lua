@@ -24,5 +24,7 @@
 -- --   on_attach = lsp.on_attach,
 -- --   capabilities = lsp.capabilities,
 -- -- }
-return {}
+return {
+}
+
 

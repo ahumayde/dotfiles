@@ -1,7 +1,6 @@
 return { 
     { 
       "nvim-lua/plenary.nvim", 
-      name = "plenary" 
     },
 
     -- UndoTree
@@ -9,15 +8,6 @@ return {
       config = function()
           vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
       end
-    },
-
-    -- Flutter Tools
-    {
-        "akinsho/flutter-tools.nvim",
-        dependencies = {
-            "plenary",
-            "stevearc/dressing.nvim", -- optional for vim.ui.select
-        },
     },
 
     -- Vim Be Good

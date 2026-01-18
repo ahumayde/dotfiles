@@ -34,5 +34,8 @@ vim.opt.clipboard= "unnamed,unnamedplus"
 vim.opt.foldlevelstart= 99
 vim.opt.foldmethod= "indent"
 
-vim.o.shell= "bash"
+vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+vim.wo[0][0].foldmethod = 'expr'
+
+vim.o.shell= "pwsh"
 vim.g.python3_host_prog= "C:\\Users\\AHumayde\\AppData\\Local\\Microsoft\\WindowsApps\\python3.12.exe"
