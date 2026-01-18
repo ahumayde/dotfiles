@@ -14,7 +14,8 @@ $WindowsTerminalSettings = "$ConfigDir\term\settings.json"
 $NerdFontScriptPath = "$ScriptsDir\Invoke-NerdFontInstaller.ps1"
 
 $DotfilesRepo = "https://github.com/ahumayde/dotfiles"
-$DotfilesSource = "$HOME/dotfiles"  # Where we download the source
+$DotfilesPath = "$HOME/dotfiles"
+$DotfilesBranch = "windows-11/hp-laptop-14"
 
 # Winget Package IDs
 $WingetIds = @(
@@ -127,9 +128,9 @@ function Setup-Dotfiles {
     Write-Status "Initializing Dotfiles Setup..."
 
     # 1. Ensure the Source Repo exists
-    if (-not (Test-Path $DotfilesSource)) {
+    if (-not (Test-Path $DotfilesPath)) {
         Write-Status "Cloning your main dotfiles repository..."
-        git clone $DotfilesRepo $DotfilesSource
+        git clone -b $DotFilesBranch $DotfilesRepo $DotFilesPath
     }
 
     # 2. Ensure the Target Config Directory exists
@@ -138,7 +139,7 @@ function Setup-Dotfiles {
     }
 
     # 3. Get all Items (Files & Directories)
-    $ItemsToSync = Get-ChildItem -Path $DotfilesSource -Force
+    $ItemsToSync = Get-ChildItem -Path $DotFilesPath -Force
 
     foreach ($Item in $ItemsToSync) {
         $TargetName = $Item.Name
