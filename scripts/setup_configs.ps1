@@ -13,8 +13,8 @@ $PowershellProfile = "$PowershellDir\user_profile.ps1"
 $WindowsTerminalSettings = "$ConfigDir\term\settings.json"
 $NerdFontScriptPath = "$ScriptsDir\Invoke-NerdFontInstaller.ps1"
 
+$DotfilesPath = "$HOME\dotfiles"
 $DotfilesRepo = "https://github.com/ahumayde/dotfiles"
-$DotfilesPath = "$HOME/dotfiles"
 $DotfilesBranch = "windows-11/hp-laptop-14"
 
 # Winget Package IDs
@@ -75,7 +75,9 @@ function Install-WingetPackages {
             continue
         }
 
-        $Title = "Install `e[95m[$Id]" 
+	if ($PSVersionTable.PSVersion.Major -ge 7) { $Title = "Install `e[95m[$Id]" }
+	else { $Title = "Install [$Id]" }
+
         $Message = "This application is missing. Do you wish to install it?"
         $Yes = New-Object System.Management.Automation.Host.ChoiceDescription "&Yes", "Installs $Id."
         $No = New-Object System.Management.Automation.Host.ChoiceDescription "&No", "Skips this application."
@@ -99,29 +101,6 @@ function Install-WingetPackages {
 
     # 2. Refresh Environment Variables
     $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
-}
-
-function Setup-Tools {
-    Write-Status "Setting up Development Tools..."
-
-    # 1. Setup Python Pip & PyNvim
-    if (Get-Command python -ErrorAction SilentlyContinue) {
-        Write-Host "Upgrading Pip and installing Pynvim..."
-        python -m pip install --upgrade pip
-        python -m pip install pynvim
-    } else {
-        Write-ErrorMsg "Python not found. Skipping Pip setup."
-    }
-
-    # 2. Add Binaries to Path (Persistently)
-    $CurrentPath = [Environment]::GetEnvironmentVariable("Path", "User")
-
-    foreach ($Path in $TargetBinPaths) {
-        if ($CurrentPath -notlike "*$Path*") {
-            [Environment]::SetEnvironmentVariable("Path", "$CurrentPath;$Path", "User")
-            Write-Host "Added $Path to User Environment Path"
-        }
-    }
 }
 
 function Setup-Dotfiles {
@@ -196,66 +175,6 @@ function Setup-Dotfiles {
     }
 }
 
-function Setup-NerdFonts {
-    Write-Status "Configuring Nerd Fonts..." -NoNewLine
-
-    # 1. Prepare Directory
-    if (-not (Test-Path $ScriptsDir)) {
-        New-Item -ItemType Directory -Force -Path $ScriptsDir | Out-Null
-    }
-
-    # 2. Download Script
-    if (-not (Test-Path $PROFILE)) {
-        Write-Host "Downloading font installation script..." -ForegroundColor Yellow
-        try {
-
-            Invoke-WebRequest -Uri $NerdFontScriptUrl -OutFile $NerdFontScriptPath
-            Write-Host "Font installation script saved to: $NerdFontScriptPath"
-        }
-        catch { Write-ErrorMsg "Download failed."; return }
-    }
-
-    # 3. Add Alias function to Profile
-    if (-not (Test-Path $PROFILE)) {
-        New-Item -Path $PROFILE -Type File -Force | Out-Null
-    }
-
-    $ProfileContent = Get-Content $PROFILE -Raw -ErrorAction SilentlyContinue
-    $AliasCode = "function install-nerdfonts { & '$LocalScriptPath' @args }"
-
-    Write-Host "Adding 'install-nerdfonts' command to PowerShell Profile..." -ForegroundColor Yellow
-    if ($ProfileContent -notmatch "function install-nerdfonts") {
-        Add-Content -Path $PROFILE -Value '`n# Setup Script: NerdFonts Shortcut'
-        Add-Content -Path $PROFILE -Value $AliasCode
-        Start-Sleep -Milliseconds 100
-        Write-Host "[install-nerdfonts Successfully Added]" -ForegroundColor Green
-        Write-Host "Reloading powershell profile..." -ForegroundColor Yellow
-        Write-Host "PowerShell $($PSVersionTable.PSVersion)"
-        $Stopwatch = [System.Diagnostics.Stopwatch]::StartNew(); . $PROFILE; $Stopwatch.Stop()
-        Write-Host "Loading personal and system profiles took $($Stopwatch.ElapsedMilliseconds)ms."
-        Write-Host "[Powershell Profile Reloaded]" -ForegroundColor Green -NoNewLine
-    } else {
-        Write-Host "Shortcut 'install-nerdfonts' already exists in Profile." -NoNewLine
-    }
-    
-    $Title = "Install `e[95m[NerdFonts]"
-    $Message = "You can now use '`e[93minstall-nerdfonts `e[90m-Scope `e[37mAllUsers' to install NerdFonts. Would you like to run this now?"
-    $Yes = New-Object System.Management.Automation.Host.ChoiceDescription "&Yes", "Runs the command immediately."
-    $No  = New-Object System.Management.Automation.Host.ChoiceDescription "&No", "Skips this step."
-    $Options = [System.Management.Automation.Host.ChoiceDescription[]]($Yes, $No)
-
-    $Result = $host.UI.PromptForChoice($Title, $Message, $Options, 0)
-    switch -Regex ($Result) {
-        0 { # Yes (Default)
-            Write-Host "Starting NerdFonts installation..." -ForegroundColor Yellow
-            install-nerdfonts -Scope AllUsers
-        }
-        1 { # No
-            Write-Host "Skipped NerdFonts installation." -ForegroundColor Gray
-        }
-    }
-}
-
 function Symlink-PowerShellProfiles {
     Write-Status "Symbolically Linking All Powershell Profiles..."
 
@@ -317,6 +236,84 @@ function Symlink-PowerShellProfiles {
     Write-Host "[PowerShell profiles configured at `e[94m$PowershellProfile`e[92m]" -ForegroundColor Green
 }
 
+function Setup-Tools {
+    Write-Status "Setting up Development Tools..."
+
+    # 1. Setup Python Pip & PyNvim
+    if (Get-Command python -ErrorAction SilentlyContinue) {
+        Write-Host "Upgrading Pip and installing Pynvim..."
+        python -m pip install --upgrade pip
+        python -m pip install pynvim
+    } else {
+        Write-ErrorMsg "Python not found. Skipping Pip setup."
+    }
+
+    # 2. Add Binaries to Path (Persistently)
+    $CurrentPath = [Environment]::GetEnvironmentVariable("Path", "User")
+
+    foreach ($Path in $TargetBinPaths) {
+        if ($CurrentPath -notlike "*$Path*") {
+            [Environment]::SetEnvironmentVariable("Path", "$CurrentPath;$Path", "User")
+            Write-Host "Added $Path to User Environment Path"
+        }
+    }
+}
+
+function Setup-NerdFonts {
+    Write-Status "Configuring Nerd Fonts..." -NoNewLine
+
+    # 1. Prepare Directory
+    if (-not (Test-Path $ScriptsDir)) {
+        New-Item -ItemType Directory -Force -Path $ScriptsDir | Out-Null
+    }
+
+    # 2. Download Script
+    if (-not (Test-Path $PROFILE)) {
+        Write-Host "Downloading font installation script..." -ForegroundColor Yellow
+        try {
+
+            Invoke-WebRequest -Uri $NerdFontScriptUrl -OutFile $NerdFontScriptPath
+            Write-Host "Font installation script saved to: $NerdFontScriptPath"
+        }
+        catch { Write-ErrorMsg "Download failed."; return }
+    }
+
+    # 3. Add Alias function to Profile
+    if (-not (Test-Path $PROFILE)) {
+        New-Item -Path $PROFILE -Type File -Force | Out-Null
+    }
+
+    $ProfileContent = Get-Content $PROFILE -Raw -ErrorAction SilentlyContinue
+    $AliasCode = "function install-nerdfonts { & '$NerdFontScriptPath' @args }"
+
+    Write-Host "Adding 'install-nerdfonts' command to PowerShell Profile..." -ForegroundColor Yellow
+    if ($ProfileContent -notmatch "function install-nerdfonts") {
+        Add-Content -Path $PROFILE -Value '`n# Setup Script: NerdFonts Shortcut'
+        Add-Content -Path $PROFILE -Value $AliasCode
+        Start-Sleep -Milliseconds 100
+        Write-Host "[install-nerdfonts Successfully Added]" -ForegroundColor Green
+    } else {
+        Write-Host "Shortcut 'install-nerdfonts' already exists in Profile." -NoNewLine
+    }
+    
+    $Title = "Install `e[95m[NerdFonts]"
+    $Message = "You can now use '`e[93minstall-nerdfonts `e[90m-Scope `e[37mAllUsers' to install NerdFonts. Would you like to run this now?"
+    $Yes = New-Object System.Management.Automation.Host.ChoiceDescription "&Yes", "Runs the command immediately."
+    $No  = New-Object System.Management.Automation.Host.ChoiceDescription "&No", "Skips this step."
+    $Options = [System.Management.Automation.Host.ChoiceDescription[]]($Yes, $No)
+
+    $Result = $host.UI.PromptForChoice($Title, $Message, $Options, 0)
+    switch -Regex ($Result) {
+        0 { # Yes (Default)
+            Write-Host "Starting NerdFonts installation..." -ForegroundColor Yellow
+            & 'C:\Users\ahuma\.config\scripts\Invoke-NerdFontInstaller.ps1' -Scope AllUsers
+        }
+        1 { # No
+            Write-Host "Skipped NerdFonts installation." -ForegroundColor Gray
+        }
+    }
+}
+
 function Symlink-WindowsTerminalSettings {
     Write-Status "Symbolically Linking Windows Terminal Settings"
 
@@ -341,11 +338,6 @@ function Symlink-WindowsTerminalSettings {
     if ($CreatedPaths) {
         Write-Host "[Windows Terminal 'settings.json' configured at `e[94m$WindowsTerminalSettings`e[92m]" -ForegroundColor Green
     }
-}
-
-function Setup-SymLinks {
-    Symlink-PowerShellProfiles
-    Symlink-WindowsTerminalSettings
 }
 
 function Run-ConfigSetup {
@@ -388,11 +380,18 @@ function Run-ConfigSetup {
         Install-WingetPackages
         Setup-Tools
         Setup-Dotfiles
+        Symlink-PowerShellProfiles
         Setup-NerdFonts
-        Setup-SymLinks
+        Symlink-WindowsTerminalSettings
 
         Write-Status "Setup Complete!"
         Write-Status "Please restart your terminal (or log out and back in) to ensure all PATH changes take effect."
+
+        Write-Host "Reloading powershell profile..." -ForegroundColor Yellow
+        Write-Host "PowerShell $($PSVersionTable.PSVersion)"
+        $Stopwatch = [System.Diagnostics.Stopwatch]::StartNew(); . $PROFILE; $Stopwatch.Stop()
+        Write-Host "Loading personal and system profiles took $($Stopwatch.ElapsedMilliseconds)ms."
+        Write-Host "[Powershell Profile Reloaded]" -ForegroundColor Green -NoNewLine
     }
 }
 
