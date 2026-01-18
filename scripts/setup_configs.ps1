@@ -18,7 +18,6 @@ $DotfilesSource = "$HOME/dotfiles"  # Where we download the source
 
 # Winget Package IDs
 $WingetIds = @(
-    "Microsoft.PowerShell",       # PowerShell 7 (pwsh)
     "Git.Git",                    # Git
     "Neovim.Neovim",              # Neovim
     "Microsoft.PowerToys",        # PowerToys
@@ -27,9 +26,9 @@ $WingetIds = @(
     "JanDeDobbeleer.OhMyPosh",    # Oh My Posh
     "OpenJS.NodeJS.LTS",          # Node JS (Required for Neovim/LSP)
     "Python.Python.3.14",         # Python 3.14
-    "BurntSushi.ripgrep.MSVC",    # Ripgrep (Required for Telescope)
     "zig.zig"                     # Zig Compiler (Often needed for Treesitter on Windows)
-    "JesseDuffield.lazygit"       # LazyGit (Optional but recommended for LazyVim)
+    # "BurntSushi.ripgrep.MSVC",    # Ripgrep (Required for Telescope)
+    # "JesseDuffield.lazygit"       # LazyGit (Optional but recommended for LazyVim)
 )
 
 # Binary Paths to add to Environment Path
@@ -164,17 +163,23 @@ function Setup-Dotfiles {
 
                     Write-Host "`e[32mBacking up old config to $BackupPath..."
                     Rename-Item -Path $TargetPath -NewName $BackupPath
+                    Start-Sleep -Milliseconds 100
 
                     Write-Host "Copying $SourcePath..." -ForegroundColor Yellow
                     Copy-Item -Path $SourcePath -Destination $TargetPath -Recurse -Force
+                    Start-Sleep -Milliseconds 100
+
                     Write-Host "$TargetPath `e[92m[Successfully Installed]"
                 }
                 2 { # Delete
                     Write-Host "Deleting old configurations..." -ForegroundColor Red
                     Remove-Item -Path $TargetPath -Recurse -Force
+                    Start-Sleep -Milliseconds 100
 
                     Write-Host "Copying $SourcePath..." -ForegroundColor Yellow
                     Copy-Item -Path $SourcePath -Destination $TargetPath -Recurse -Force
+                    Start-Sleep -Milliseconds 100
+
                     Write-Host "$TargetPath `e[92m[Successfully Installed]"
                 }
                 0 { # Skip (Default)
@@ -184,7 +189,8 @@ function Setup-Dotfiles {
         } else { # No conflict, just copy
             Write-Host " [Installing...]" -Foreground Yellow
             Copy-Item -Path $SourcePath -Destination $TargetPath -Recurse -Force
-            Write-Host "$TargetPath `e[92m[Successfully Installed]`n"
+            Start-Sleep -Milliseconds 100
+            Write-Host "$TargetPath `e[92m[Successfully Installed]"
         }
     }
 }
@@ -199,7 +205,9 @@ function Setup-NerdFonts {
 
     # 2. Download Script
     if (-not (Test-Path $PROFILE)) {
+        Write-Host "Downloading font installation script..." -ForegroundColor Yellow
         try {
+
             Invoke-WebRequest -Uri $NerdFontScriptUrl -OutFile $NerdFontScriptPath
             Write-Host "Font installation script saved to: $NerdFontScriptPath"
         }
@@ -218,6 +226,7 @@ function Setup-NerdFonts {
     if ($ProfileContent -notmatch "function install-nerdfonts") {
         Add-Content -Path $PROFILE -Value '`n# Setup Script: NerdFonts Shortcut'
         Add-Content -Path $PROFILE -Value $AliasCode
+        Start-Sleep -Milliseconds 100
         Write-Host "[install-nerdfonts Successfully Added]" -ForegroundColor Green
         Write-Host "Reloading powershell profile..." -ForegroundColor Yellow
         Write-Host "PowerShell $($PSVersionTable.PSVersion)"
@@ -225,17 +234,11 @@ function Setup-NerdFonts {
         Write-Host "Loading personal and system profiles took $($Stopwatch.ElapsedMilliseconds)ms."
         Write-Host "[Powershell Profile Reloaded]" -ForegroundColor Green -NoNewLine
     } else {
-        Write-Host "[install-nerdfonts Successfully Added]" -ForegroundColor Green
-        Write-Host "Reloading powershell profile..." -ForegroundColor Yellow
-        Write-Host "PowerShell $($PSVersionTable.PSVersion)"
-        $Stopwatch = [System.Diagnostics.Stopwatch]::StartNew(); . $PROFILE; $Stopwatch.Stop()
-        Write-Host "Loading personal and system profiles took $($Stopwatch.ElapsedMilliseconds)ms."
-        Write-Host "[Powershell Profile Successfully Reloaded]" -ForegroundColor Green -NoNewLine
-        # Write-Host "Shortcut 'install-nerdfonts' already exists in Profile." -NoNewLine
+        Write-Host "Shortcut 'install-nerdfonts' already exists in Profile." -NoNewLine
     }
     
     $Title = "Install `e[95m[NerdFonts]"
-    $Message = "You can now use '`e[33minstall-nerdfonts `e[90m-Scope `e[37mAllUsers' to install NerdFonts. Would you like to run this now?"
+    $Message = "You can now use '`e[93minstall-nerdfonts `e[90m-Scope `e[37mAllUsers' to install NerdFonts. Would you like to run this now?"
     $Yes = New-Object System.Management.Automation.Host.ChoiceDescription "&Yes", "Runs the command immediately."
     $No  = New-Object System.Management.Automation.Host.ChoiceDescription "&No", "Skips this step."
     $Options = [System.Management.Automation.Host.ChoiceDescription[]]($Yes, $No)
@@ -268,6 +271,16 @@ function Symlink-PowerShellProfiles {
     # 3. Collect all profile paths for both Windows PowerShell & PowerShell 7
     $ProfilePaths = @()
 
+    # PowerShell 5 profiles
+    try {
+        $ProfilePaths += powershell -NoProfile -Command '$PROFILE.AllUsersAllHosts'
+        $ProfilePaths += powershell -NoProfile -Command '$PROFILE.AllUsersCurrentHost'
+        $ProfilePaths += powershell -NoProfile -Command '$PROFILE.CurrentUserAllHosts'
+        $ProfilePaths += powershell -NoProfile -Command '$PROFILE.CurrentUserCurrentHost'
+    } catch {
+        Write-ErrorMsg "Failed to add Powershell 5 profiles to symbolic link list"
+    }
+
     # PowerShell 7 profiles
     try {
         $ProfilePaths += pwsh -NoProfile -Command '$PROFILE.AllUsersAllHosts'
@@ -296,9 +309,11 @@ function Symlink-PowerShellProfiles {
         # Create symbolic link
         Write-Host "Creating SymLink: `e[38;5;99m$Profile `e[37m-> $PowershellProfile..."
         New-Item -ItemType SymbolicLink -Path $Profile -Target $PowershellProfile | Out-Null
+        Start-Sleep -Milliseconds 100
+
     }
 
-    Write-Host "[PowerShell 7 profiles configured at `e[94m$PowershellProfile`e[92m]" -ForegroundColor Green
+    Write-Host "[PowerShell profiles configured at `e[94m$PowershellProfile`e[92m]" -ForegroundColor Green
 }
 
 function Symlink-WindowsTerminalSettings {
@@ -317,6 +332,7 @@ function Symlink-WindowsTerminalSettings {
             }
             Write-Host "Creating SymLink: `e[38;5;99m$Path `e[37m-> $WindowsTerminalSettings..."
             New-Item -ItemType SymbolicLink -Path $Path -Target $WindowsTerminalSettings | Out-Null
+            Start-Sleep -Milliseconds 100
             $Path
         }
     }
@@ -349,16 +365,26 @@ function Run-ConfigSetup {
             return
         }
 
-        Install-WingetPackages
-
         # 2. PowerShell Version Check
         if ($PSVersionTable.PSVersion.Major -lt 7) {
-            Write-Status "You are running Windows PowerShell 5."
-            Write-Status "This script will install PowerShell 7 (pwsh)."
-            Write-Status "NOTE: After installation, please restart your terminal using 'pwsh'."
+            Write-Status "Detected Windows PowerShell 5.x - PowerShell 7 is required."
+            $null = winget list -e --id "Microsoft.PowerShell" 2>$null
+            if ($LASTEXITCODE -eq 0) {
+                Write-Status "Start PowerShell 7 by running 'pwsh' here or opening a new PowerShell 7 window."
+            } else {
+                Write-Status "Attempting to install PowerShell 7 (pwsh) via winget..."
+                Write-Status "NOTE: After installation, start PowerShell 7 by running 'pwsh' here or opening a new PowerShell 7 window."
+                $OriginalWingetIds = $WingetIds
+                $WingetIds = @( "Microsoft.PowerShell" )
+                Install-WingetPackages
+                $WingetIds = $OriginalWingetIds
+            }
+
+            Write-Status "Restart this script from PowerShell 7 to continue."
             return
         }
 
+        Install-WingetPackages
         Setup-Tools
         Setup-Dotfiles
         Setup-NerdFonts
@@ -366,9 +392,6 @@ function Run-ConfigSetup {
 
         Write-Status "Setup Complete!"
         Write-Status "Please restart your terminal (or log out and back in) to ensure all PATH changes take effect."
-        if (Get-Command pwsh -ErrorAction SilentlyContinue) {
-            Write-Status "Type 'pwsh' to switch to PowerShell 7."
-        }
     }
 }
 

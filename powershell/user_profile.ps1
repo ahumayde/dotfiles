@@ -9,10 +9,13 @@
 # Globals
 $CONFIG = "$PROFILE"
 
-# ANSI File Colours 
-$PSStyle.FileInfo.Directory    = "`e[94m"
-$PSStyle.FileInfo.Executable   = "`e[93m"
-$PSStyle.FileInfo.SymbolicLink = "`e[38;5;99m"
+
+if ($PSVersionTable.PSVersion.Major -ge 7) {
+    # ANSI File Colours 
+    $PSStyle.FileInfo.Directory    = "`e[94m"
+    $PSStyle.FileInfo.Executable   = "`e[93m"
+    $PSStyle.FileInfo.SymbolicLink = "`e[38;5;99m"
+}
 
 # Neovim Configs
 $env:XDG_CONFIG_HOME = "$env:USERPROFILE\.config\"
@@ -77,7 +80,7 @@ function ls-simple {
 # -----------------------------------------------------------------------------
 
 # Oh My Posh Init
-Invoke-OhMyPoshInit
+if ($PSVersionTable.PSVersion.Major -ge 7) { Invoke-OhMyPoshInit }
 
 
 # -----------------------------------------------------------------------------
