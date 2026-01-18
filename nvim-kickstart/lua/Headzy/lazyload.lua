@@ -151,19 +151,6 @@ require("lazy").setup({
         --
         -- Use `opts = {}` to automatically pass options to a plugin's `setup()` function, forcing the plugin to be loaded.
 
-        { -- Git Signs: Adds git related to the gutter & provides utilities for managing changes (`:help gitsigns`)
-            "lewis6991/gitsigns.nvim",
-            opts = {
-                signs = {
-                    add = { text = "+" },
-                    change = { text = "~" },
-                    delete = { text = "_" },
-                    topdelete = { text = "‾" },
-                    changedelete = { text = "~" },
-                },
-            },
-        },
-
         -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
         --
         -- which loads which-key before all the UI elements are loaded. Events can be

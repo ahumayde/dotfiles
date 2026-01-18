@@ -102,5 +102,5 @@ vim.opt.termguicolors = true
 -- vim.g.neotree_show_hidden = 1
 
 -- Windows
--- vim.o.shell = "bash"
+vim.o.shell = "pwsh"
 -- vim.g.python3_host_prog = "C:\\Users\\AHumayde\\AppData\\Local\\Microsoft\\WindowsApps\\python3.12.exe"
