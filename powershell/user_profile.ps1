@@ -45,6 +45,11 @@ function nvim-personal {
     nvim $args
 }
 
+function nvim-packer { 
+    $env:NVIM_APPNAME="nvim-packer"
+    nvim $args
+}
+
 function ls-less { 
     $mode = "`t`tMode`t`t"
     $file = "`t`tFile`t`t"
