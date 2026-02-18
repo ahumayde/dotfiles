@@ -10,7 +10,7 @@ $ConfigDir = "$HOME\.config"
 $ScriptsDir = "$ConfigDir\scripts"
 $PowershellDir = "$ConfigDir\powershell"
 $PowershellProfile = "$PowershellDir\user_profile.ps1"
-$WindowsTerminalSettings = "$ConfigDir\term\settings.json"
+$WindowsTerminalSettings = "$ConfigDir\terminal\settings.json"
 $NerdFontScriptPath = "$ScriptsDir\Invoke-NerdFontInstaller.ps1"
 
 $DotfilesPath = "$HOME\dotfiles"

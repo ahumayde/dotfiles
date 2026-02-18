@@ -3,11 +3,11 @@
 # Variable Declarations.
 dotfiles_dir="$(dirname $(dirname "$0"))"
 
-term_dir="$HOME/dotfiles/term"
 termux_dir="$HOME/.termux"
 nvim_dir="$HOME/.config/nvim"
 fonts_dir="$HOME/.local/share/fonts"
-active_font_dir="$term_dir" # default
+terminal_dir="$HOME/dotfiles/terminal"
+active_font_dir="$terminal_dir" # default
 
 github="https://github.com"
 nvm_url="https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh"

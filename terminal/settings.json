@@ -13,10 +13,24 @@
         {
             "command": 
             {
+                "action": "nextTab"
+            },
+            "id": "User.nextTab.0"
+        },
+        {
+            "command": 
+            {
                 "action": "sendInput",
                 "input": "\u001b[13;2u"
             },
             "id": "User.sendInput.8882FD6D"
+        },
+        {
+            "command": 
+            {
+                "action": "prevTab"
+            },
+            "id": "User.prevTab.0"
         },
         {
             "command": 
@@ -55,32 +69,32 @@
             "keys": "ctrl+c"
         },
         {
-            "id": "Terminal.DuplicatePaneAuto",
-            "keys": "alt+shift+n"
-        },
-        {
             "id": "Terminal.MoveTabForward",
             "keys": "alt+shift+k"
         },
         {
             "id": "Terminal.DuplicatePaneAuto",
-            "keys": "alt+n"
-        },
-        {
-            "id": "Terminal.DuplicatePaneAuto",
-            "keys": "alt+shift+d"
+            "keys": "alt+shift+n"
         },
         {
             "id": "User.sendInput.8882FD6D",
             "keys": "shift+enter"
         },
         {
-            "id": "Terminal.PasteFromClipboard",
-            "keys": "ctrl+v"
+            "id": "Terminal.DuplicatePaneAuto",
+            "keys": "alt+shift+d"
+        },
+        {
+            "id": "Terminal.DuplicatePaneAuto",
+            "keys": "alt+n"
         },
         {
             "id": "Terminal.FindText",
             "keys": "ctrl+shift+f"
+        },
+        {
+            "id": "Terminal.PasteFromClipboard",
+            "keys": "ctrl+v"
         },
         {
             "id": "Terminal.QuakeMode",
@@ -143,11 +157,11 @@
             "keys": "ctrl+w"
         },
         {
-            "id": null,
+            "id": "User.nextTab.0",
             "keys": "ctrl+k"
         },
         {
-            "id": null,
+            "id": "User.prevTab.0",
             "keys": "ctrl+j"
         },
         {
