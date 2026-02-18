@@ -22,6 +22,10 @@ $env:XDG_CONFIG_HOME = "$env:USERPROFILE\.config\"
 $env:NVIM_INIT_FILE = "$env:USERPROFILE\.config\nvim\init.lua"
 $NVIM_CONFIG = "$env:USERPROFILE\.config\nvim\init.lua"
 
+# Path directories
+$env:PATH += ";$env:USERPROFILE\Software\flutter\bin"
+$env:PATH += ";$env:USERPROFILE\.local\bin"
+$env:PATH += ";C:\Program Files\PostgreSQL\18\bin\"
 
 # -----------------------------------------------------------------------------
 # Function Declarations
@@ -32,7 +36,7 @@ function install-nerdfonts {
 }
 
 function Invoke-OhMyPoshInit { 
-    & oh-my-posh init pwsh --config ~/.config/term/theme.omp.json | Invoke-Expression 
+    & oh-my-posh init pwsh --config ~/.config/terminal/theme.omp.json | Invoke-Expression 
 }
 
 function nvim-kickstart { 
