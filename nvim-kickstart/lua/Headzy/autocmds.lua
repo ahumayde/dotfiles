@@ -16,7 +16,9 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
     group = vim.api.nvim_create_augroup("NoFileSetup", { clear = true }),
     pattern = { "*" },
     callback = function(args)
-        if args.file == "" then
+        local buftype = vim.api.nvim_get_option_value("buftype", { buf = args.buf })
+        local nofile = args.file == "" or buftype == "nofile" or buftype == "terminal"
+        if nofile then
             vim.o.number = false
             vim.o.relativenumber = false
             vim.o.signcolumn = "no"
