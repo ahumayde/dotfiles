@@ -34,5 +34,9 @@ vim.opt.clipboard= "unnamed,unnamedplus"
 vim.opt.foldlevelstart= 99
 vim.opt.foldmethod= "indent"
 
+vim.opt.fillchars = { eob = ' ' }
+vim.opt.laststatus= 3
+
+
 vim.o.shell= "pwsh"
 vim.g.python3_host_prog= "C:\\Users\\AHumayde\\AppData\\Local\\Microsoft\\WindowsApps\\python3.12.exe"

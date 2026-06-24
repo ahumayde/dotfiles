@@ -90,6 +90,7 @@ vim.keymap.set("n", "*", "#zzzv")
 vim.keymap.set("n", "#", "*zzzv")
 
 -- MOVING
+vim.keymap.set("i", "<A-BS>", "<C-c>vbda")
 vim.keymap.set("n", "gg", "msgg")
 vim.keymap.set("n", "G", "msG")
 vim.keymap.set("n", ":", "ms:")

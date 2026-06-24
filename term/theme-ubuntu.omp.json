@@ -91,8 +91,7 @@
     {
       "type": "prompt",
       "alignment": "right",
-      "segments": [
-        {
+      "segments": [ {
           "properties": {
             "cache_duration": "none",
             "charged_icon": "\uf240 ",
@@ -100,16 +99,16 @@
             "discharging_icon": "\ue234 "
           },
           "template": " {{ if not .Error }}{{ .Icon }}{{ .Percentage }}{{ end }}{{ .Error }}\uf295 <#262626></>",
-          "foreground": "#18354c",
+          "foreground": "#33dd2d",
           "type": "battery",
           "style": "diamond",
+          "trailing_diamond": "\ue0b6",
           "foreground_templates": [
             "{{if eq \"Charging\" .State.String}}#b8e994{{end}}",
             "{{if eq \"Discharging\" .State.String}}#fff34e{{end}}",
             "{{if eq \"Full\" .State.String}}#33DD2D{{end}}"
           ]
-        },
-        {
+        }, {
           "properties": {
             "cache_duration": "none",
             "linux": "\ue712",
@@ -118,13 +117,12 @@
           },
           "leading_diamond": "\ue0b6",
           "trailing_diamond": "<#002030,#18354c>\ue0b2",
-          "template": " {{ if .WSL }}WSL at {{ end }}{{.Icon}} </>",
+          "template": " {{.Icon}} </>",
           "foreground": "#F9F1A5",
           "background": "#18354c",
           "type": "os",
           "style": "diamond"
-        },
-        {
+        }, {
           "properties": {
             "cache_duration": "none",
             "time_format": "_2,15:04"

@@ -12,6 +12,13 @@ function Restart-Explorer {
     # Stop the explorer process
     Stop-Process -Name explorer -Force
 
+    # Wait to ensure process stopped 
+    Start-Sleep -Seconds 2
+
+    # Remove icon cache
+    Remove-Item -Path "$env:LOCALAPPDATA\Microsoft\Windows\Explorer\iconcache*" -Force
+    Remove-Item -Path "$env:LOCALAPPDATA\Microsoft\Windows\Explorer\thumbcache*" -Force
+
     # Start the explorer process
     Start-Process explorer
 }
