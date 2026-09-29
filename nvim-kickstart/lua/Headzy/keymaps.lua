@@ -119,14 +119,14 @@ vim.keymap.set({ "n", "x" }, "<leader>vdo", ":lua vim.diagnostic.config({virtual
 vim.keymap.set({ "n", "x" }, "<leader>vf", ":lua vim.lsp.buf.format({async = false, timeout_ms = 10000})<CR>")
 
 --F#
-vim.g.fsharp_map_fsisendline = "<C-s>"
+-- vim.g.fsharp_map_fsisendline = "<C-s>"
 -- vim.keymap.set("n", "<A-CR>", ":echo Alt Enter Pressed!")
 -- vim.keymap.set("n", "<C-CR>", ":echo Ctrl Enter Pressed!")
 -- vim.keymap.set("n", "<S-CR>", ":echo Shift Enter Pressed!")
 
 -- vim.keymap.set("n", "<S-CR>", "Vy:FsiShow<CR>pi;;<CR><C-[>u")
 -- vim.keymap.set("v", "<S-CR>", "y:FsiShow<CR>pi;;<CR><C-[>u")
-vim.keymap.set("n", "<leader>fsi", "Vy:FsiReset<CR>pi;;<CR><C-[>u")
+-- vim.keymap.set("n", "<leader>fsi", "Vy:FsiReset<CR>pi;;<CR><C-[>u")
 -- vim.keymap.set("v", "<C-CR>", "y:FsiReset<CR>pi;;<CR><C-[>u")
 -- vim.keymap.set("n", "<leader>rsi", ":FsiReset<CR>")
 -- vim.keymap.set("n", "<leader>fsi", ":FsiShow<CR>")
@@ -134,9 +134,9 @@ vim.keymap.set("n", "<leader>fsi", "Vy:FsiReset<CR>pi;;<CR><C-[>u")
 -- vim.keymap.set("n", "<S-CR>", ":echo Shift Enter Pressed!")
 
 -- Not Using
-vim.keymap.set("n", "<leader>vrr", vim.lsp.buf.references)
-vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol)
-vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help)
+-- vim.keymap.set("n", "<leader>vrr", vim.lsp.buf.references)
+-- vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol)
+-- vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help)
 
 -- "gd"  -> go to definition
 -- "K"   -> hover

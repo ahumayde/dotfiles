@@ -264,7 +264,7 @@ require("lazy").setup({
                     builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown {
                         -- TODO: windblend was commented - look into it
                         previewer = false, winblend = 10,
-                    })
+                     })
                 end, { desc = "[P] Fuzzily [S]earch in current buffer" })
 
                 vim.keymap.set("n", "<leader>p/", function()
@@ -675,7 +675,23 @@ require("lazy").setup({
             priority = 1000,
             config = function()
                 -- ColourVim()
+                require('vscode').setup({
+                    transparent = true,
+                    underline_links = true,
+                    disable_nvimtree_bg = true,
+                    terminal_colors = true,
+
+                    color_overrides = {
+                        vscAccentBlue = '#4FC1FF',
+                        vscMediumBlue = '#18A2FE',
+                        vscDisabledBlue = '#729DB3',
+                        -- vscLineNumber = "#0000FF",
+                        --
+                    }
+
+                })
                 vim.cmd.colorscheme("vscode")
+                -- vim.api.nvim_set_hl(0,"Normal",{bg="none"})
             end
         },
 
@@ -796,4 +812,4 @@ require("lazy").setup({
 })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
--- nim: ts=2 sts=2 sw=2 et
+-- vim: ts=2 sts=2 sw=2 et

@@ -675,6 +675,21 @@ require("lazy").setup({
             priority = 1000,
             config = function()
                 -- ColourVim()
+                require('vscode').setup({
+                    transparent = true,
+                    underline_links = true,
+                    disable_nvimtree_bg = true,
+                    terminal_colors = true,
+
+                    color_overrides = {
+                        vscAccentBlue = '#4FC1FF',
+                        vscMediumBlue = '#18A2FE',
+                        vscDisabledBlue = '#729DB3',
+                        -- vscLineNumber = "#0000FF",
+                        --
+                    }
+
+                })
                 vim.cmd.colorscheme("vscode")
             end
         },
@@ -718,7 +733,7 @@ require("lazy").setup({
         { -- Highlight, edit, and navigate code
             "nvim-treesitter/nvim-treesitter",
             build = ":TSUpdate",
-            main = "nvim-treesitter.configs", -- Sets main module to use for opts
+            -- main = "nvim-treesitter.configs", -- Sets main module to use for opts
             -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
             opts = {
                 ensure_installed = { "bash", "c", "diff", "html", "lua", "luadoc", "markdown", "markdown_inline", "query", "vim", "vimdoc", "dart" },
