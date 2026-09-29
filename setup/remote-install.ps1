@@ -444,8 +444,8 @@ Write-Status "Synchronising Configuration Files..."
 $ConfigMappings = @(
     @{ Name = "PowerShell Profile"; Source = "$ConfigDir\terminal\profile.ps1"; Target = $PowerShellProfilePath; Type = "Symlink" },
     @{ Name = "Windows Terminal"; Source = "$ConfigDir\terminal\settings.json"; Target = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"; Type = "Copy" },
-    @{ Name = "VSCode Settings"; Source = "$ConfigDir\vscode\settings.json"; Target = "$env:APPDATA\Code\User\settings.json"; Type = "Copy" },
-    @{ Name = "VSCode Keybinds"; Source = "$ConfigDir\vscode\keybindings.json"; Target = "$env:APPDATA\Code\User\keybindings.json"; Type = "Copy" },
+    @{ Name = "VSCode Settings"; Source = "$ConfigDir\vscode\settings.jsonc"; Target = "$env:APPDATA\Code\User\settings.jsonc"; Type = "Copy" },
+    @{ Name = "VSCode Keybinds"; Source = "$ConfigDir\vscode\keybindings.jsonc"; Target = "$env:APPDATA\Code\User\keybindings.jsonc"; Type = "Copy" },
     @{ Name = "AutoHotkey Startup"; Source = "$ConfigDir\autohotkey\startup_ahk.exe"; Target = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\startup_ahk.lnk"; Type = "Shortcut" },
     @{ Name = "Windhawk Mods"; Source = "$ConfigDir\windhawk\mods"; Target = "$env:ProgramData\Windhawk\Engine\Mods"; Type = "CopyContents"; Service = "Windhawk" },
     @{ Name = "Windhawk Settings"; Source = "$ConfigDir\windhawk\userprofile.json"; Target = "$env:ProgramData\Windhawk\Engine\userprofile.json"; Type = "Copy"; Service = "Windhawk" }
@@ -472,6 +472,7 @@ function Test-DeploymentCurrent {
             return ($Existing.LinkType -eq "SymbolicLink" -and ([string]@($Existing.Target)[0]) -ieq $Map.Source)
         }
         "Copy" {
+            if (-not (Test-Path -LiteralPath $Map.Target)) { return $false }
             $Src = Get-Item -LiteralPath $Map.Source -Force -ErrorAction SilentlyContinue
             if (-not $Src -or $Src.PSIsContainer -or $Existing.PSIsContainer) { return $false }
             return ((Get-FileHash -LiteralPath $Map.Source).Hash -eq (Get-FileHash -LiteralPath $Map.Target).Hash)
@@ -512,7 +513,8 @@ foreach ($Map in $ConfigMappings) {
 
     # CopyContents merges into an existing folder, so it never needs conflict handling.
     if ($Map.Type -ne "CopyContents") {
-        # -Force so broken symlinks are still found.
+        # Clear variable to prevent bleeding from previous loop iterations
+        $Existing = $null 
         $Existing = Get-Item -LiteralPath $Map.Target -Force -ErrorAction SilentlyContinue
         if ($Existing) {
             if (Test-DeploymentCurrent -Map $Map -Existing $Existing) {
@@ -551,12 +553,19 @@ foreach ($Map in $ConfigMappings) {
     $ServiceStopped = $false
     try {
         if ($Map.Service) {
+            # Stop the core background service
             $Svc = Get-Service -Name $Map.Service -ErrorAction SilentlyContinue
             if ($Svc -and $Svc.Status -eq "Running") {
                 Stop-Service -Name $Map.Service -ErrorAction Stop
                 $ServiceStopped = $true
                 Start-Sleep -Seconds 1
             }
+            # Kill any lingering UI/Engine processes holding file locks (e.g., windhawk.exe)
+            $Processes = Get-Process -Name "$($Map.Service)*" -ErrorAction SilentlyContinue
+            if ($Processes) {
+                $Processes | Stop-Process -Force -ErrorAction SilentlyContinue
+            }
+            Start-Sleep -Seconds 2
         }
 
         switch ($Map.Type) {
