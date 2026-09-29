@@ -1,0 +1,16 @@
+{
+  "theme": "TranslucentStartMenu",
+  "controlStyles[0].target": "Border#AcrylicBorder",
+  "webContentCustomJs": "",
+  "resourceVariables[0].variableKey": "",
+  "resourceVariables[0].value": "",
+  "controlStyles[0].styles[0]": "Margin=0",
+  "controlStyles[1].target": "StartDocked.AppListViewItem > Grid@CommonStates > Border",
+  "controlStyles[1].styles[0]": "Background=Red",
+  "controlStyles[1].styles[1]": "Margin=20",
+  "disableNewStartMenuLayout": 0,
+  "webContentStyles[0].target": "",
+  "webContentStyles[0].styles[0]": "",
+  "styleConstants[0]": "",
+  "themeResourceVariables[0]": ""
+}
