@@ -11,7 +11,7 @@ $CONFIG = "$PROFILE"
 
 
 if ($PSVersionTable.PSVersion.Major -ge 7) {
-    # ANSI File Colours 
+    # ANSI File Colours
     $PSStyle.FileInfo.Directory    = "`e[94m"
     $PSStyle.FileInfo.Executable   = "`e[93m"
     $PSStyle.FileInfo.SymbolicLink = "`e[38;5;99m"
@@ -33,16 +33,16 @@ function install-nerdfonts {
     & '~\.dotfiles\scripts\Invoke-NerdFontInstaller.ps1' @args
 }
 
-function Invoke-OhMyPoshInit { 
-    & oh-my-posh init pwsh --config ~/.dotfiles/configs/terminal/theme.omp.json | Invoke-Expression 
+function Invoke-OhMyPoshInit {
+    & oh-my-posh init pwsh --config ~/.dotfiles/configs/terminal/theme.omp.json | Invoke-Expression
 }
 
-function nvim-kickstart { 
+function nvim-kickstart {
     $env:NVIM_APPNAME="nvim-kickstart"
     nvim $args
 }
 
-function ls-less { 
+function ls-less {
     $mode = "`t`tMode`t`t"
     $file = "`t`tFile`t`t"
     $dir  = "`t`tDir `t`t"
@@ -54,19 +54,19 @@ function ls-less {
 function ls-simple {
     $items = Get-ChildItem | Sort-Object @{Expression = { $_.PSIsContainer -notlike $true }}, @{Expression = { $_.Name }}
     $items | ForEach-Object {
-        if ($_.PSIsContainer) { 
+        if ($_.PSIsContainer) {
             if ($_.Name -like '.*') {
                 Write-Host                "  `e[38;5;99m.Dir       $($_.Name)   "
             } else {
                 Write-Host -ForegroundColor DarkBlue "   Dir       $($_.Name)   "
             }
-        } else { 
+        } else {
             if ($_.Name -like '.*') {
                 Write-Host -ForegroundColor DarkGray "  .File      $($_.Name)   "
             } else {
                 Write-Host -ForegroundColor White    "   File      $($_.Name)   "
             }
-        } 
+        }
     }
     Write-Host
 }
@@ -95,5 +95,7 @@ Set-Alias ompi Invoke-OhMyPoshInit
 Set-Alias touch New-Item
 Set-Alias grep findstr
 Set-Alias ll ls-less
-Set-Alias lw dir | Format-Wide -Column 4 
+Set-Alias lw dir | Format-Wide -Column 4
 # Set-Alias ll dir | Format-Table Name -AutoSize
+
+Import-Module -Name Microsoft.WinGet.CommandNotFound
