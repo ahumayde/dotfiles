@@ -1,0 +1,22 @@
+{
+  "app": {
+    "latestVersion": "1.7.3",
+    "version": "1.7.3"
+  },
+  "id": "{00044559-CD70-4580-AFC6-8702C1229E7B}",
+  "mods": {
+    "windows-11-taskbar-styler": {
+      "version": "1.10",
+      "latestVersion": "1.10"
+    },
+    "windows-11-start-menu-styler": {
+      "version": "1.7",
+      "latestVersion": "1.7"
+    },
+    "windows-11-notification-center-styler": {
+      "version": "1.7",
+      "latestVersion": "1.7"
+    }
+  },
+  "os": "10.0.26200"
+}

@@ -33,7 +33,7 @@ $ScriptUrl      = "$DotfilesRaw/$DotfilesBranch/setup/remote-install.ps1"
 
 $WingetIds = @(
     "Git.Git", "Neovim.Neovim", "Microsoft.PowerToys", "AutoHotkey.AutoHotkey",
-    "RamenSoftware.Windhawk", "JanDeDobbeleer.OhMyPosh", "OpenJS.NodeJS.LTS",
+    "RamenSoftware.Windhawk", "JanDeDobbeleer.OhMyPosh", "OpenJS.NodeJS",
     "Python.Python.3.14"
 )
 
@@ -428,7 +428,11 @@ if ($DryRun -or $All -or (Confirm-Step -Title "NerdFonts" -Message "Download (if
     if ($DryRun) {
         Write-DryRunNotice "execute $NerdFontScriptPath -Scope AllUsers"
     } elseif (Test-Path $NerdFontScriptPath) {
-        try { & $NerdFontScriptPath -Scope AllUsers }
+        try {
+            Write-Host "Launching Nerd Fonts installer in a new window to preserve logs..." -ForegroundColor Yellow
+            $PwshExe = (Get-Process -Id $PID).Path
+            Start-Process $PwshExe -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$NerdFontScriptPath`" -Scope AllUsers" -Wait
+        }
         catch { Write-ErrorMsg "Nerd Font installer failed: $_" }
     }
 } else {
@@ -447,7 +451,7 @@ $ConfigMappings = @(
     @{ Name = "VSCode Settings"; Source = "$ConfigDir\vscode\settings.jsonc"; Target = "$env:APPDATA\Code\User\settings.jsonc"; Type = "Copy" },
     @{ Name = "VSCode Keybinds"; Source = "$ConfigDir\vscode\keybindings.jsonc"; Target = "$env:APPDATA\Code\User\keybindings.jsonc"; Type = "Copy" },
     @{ Name = "AutoHotkey Startup"; Source = "$ConfigDir\autohotkey\startup_ahk.exe"; Target = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\startup_ahk.lnk"; Type = "Shortcut" },
-    @{ Name = "Windhawk Mods"; Source = "$ConfigDir\windhawk\mods"; Target = "$env:ProgramData\Windhawk\Engine\Mods"; Type = "CopyContents"; Service = "Windhawk" },
+    @{ Name = "Windhawk Mods"; Source = "$ConfigDir\windhawk\mods"; Target = "$env:ProgramData\Windhawk\Engine\Mods"; Type = "CopyContents"; Service = "Windhawk" }
     @{ Name = "Windhawk Settings"; Source = "$ConfigDir\windhawk\userprofile.json"; Target = "$env:ProgramData\Windhawk\Engine\userprofile.json"; Type = "Copy"; Service = "Windhawk" }
     # Neovim is handled within the powershell user profile
     # PowerToys is handled separately below (its settings are many files, shipped as a .ptb backup).
@@ -472,14 +476,26 @@ function Test-DeploymentCurrent {
             return ($Existing.LinkType -eq "SymbolicLink" -and ([string]@($Existing.Target)[0]) -ieq $Map.Source)
         }
         "Copy" {
-            if (-not (Test-Path -LiteralPath $Map.Target)) { return $false }
+            # If the existing item is a symlink, it is incorrect and must be replaced
+            if ($Existing.LinkType) { return $false }
+
             $Src = Get-Item -LiteralPath $Map.Source -Force -ErrorAction SilentlyContinue
             if (-not $Src -or $Src.PSIsContainer -or $Existing.PSIsContainer) { return $false }
-            return ((Get-FileHash -LiteralPath $Map.Source).Hash -eq (Get-FileHash -LiteralPath $Map.Target).Hash)
+
+            # Safely hash the files, returning false silently if the path is broken
+            try {
+                $SrcHash = (Get-FileHash -LiteralPath $Map.Source -ErrorAction Stop).Hash
+                $TgtHash = (Get-FileHash -LiteralPath $Map.Target -ErrorAction Stop).Hash
+                return ($SrcHash -eq $TgtHash)
+            } catch {
+                return $false
+            }
         }
         "Shortcut" {
-            $Lnk = (New-Object -ComObject WScript.Shell).CreateShortcut($Map.Target)
-            return ($Lnk.TargetPath -ieq $Map.Source)
+            try {
+                $Lnk = (New-Object -ComObject WScript.Shell).CreateShortcut($Map.Target)
+                return ($Lnk.TargetPath -ieq $Map.Source)
+            } catch { return $false }
         }
         default { return $false }
     }
@@ -514,7 +530,7 @@ foreach ($Map in $ConfigMappings) {
     # CopyContents merges into an existing folder, so it never needs conflict handling.
     if ($Map.Type -ne "CopyContents") {
         # Clear variable to prevent bleeding from previous loop iterations
-        $Existing = $null 
+        $Existing = $null
         $Existing = Get-Item -LiteralPath $Map.Target -Force -ErrorAction SilentlyContinue
         if ($Existing) {
             if (Test-DeploymentCurrent -Map $Map -Existing $Existing) {
@@ -710,5 +726,5 @@ if ($DryRun) {
     }
 }
 
-if ($DryRun) { Write-Status "Dry run complete. No changes were made." } 
+if ($DryRun) { Write-Status "Dry run complete. No changes were made." }
 else { Write-Status "Setup Complete! Please restart your terminal for all environment variables to apply globally." }
