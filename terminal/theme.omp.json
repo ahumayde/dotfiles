@@ -99,10 +99,7 @@
             "charging_icon": "\uf1e6 ",
             "discharging_icon": "\ue234 "
           },
-<<<<<<< HEAD:terminal/theme.omp.json
           "trailing_diamond": "\ue0b5",
-=======
->>>>>>> 82bda45d41d2a178770b94a7cc60315eafc1ee1c:term/theme.omp.json
           "template": " {{ if not .Error }}{{ .Icon }}{{ .Percentage }}{{ end }}{{ .Error }}\uf295 <#262626></>",
           "foreground": "#18354c",
           "type": "battery",
