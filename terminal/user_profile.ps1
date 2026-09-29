@@ -49,6 +49,11 @@ function nvim-personal {
     nvim $args
 }
 
+function nvim-config { 
+    $env:NVIM_APPNAME="nvim-config"
+    nvim $args
+}
+
 function nvim-packer { 
     $env:NVIM_APPNAME="nvim-packer"
     nvim $args
