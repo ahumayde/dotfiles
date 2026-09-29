@@ -27,7 +27,7 @@ $DotfilesPath   = Join-Path $HOME ".dotfiles"
 $DotfilesRepo   = "https://github.com/ahumayde/dotfiles"
 $DotfilesBranch = "windows-11/pc"
 $DotfilesRaw    = "https://raw.githubusercontent.com/ahumayde/dotfiles"
-$ConfigDir      = Join-Path $DotfilesPath "config"
+$ConfigDir      = Join-Path $DotfilesPath "configs"
 $ScriptsDir     = Join-Path $DotfilesPath "scripts"
 $ScriptUrl      = "$DotfilesRaw/$DotfilesBranch/setup/remote-install.ps1"
 
