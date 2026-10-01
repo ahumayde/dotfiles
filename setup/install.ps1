@@ -83,7 +83,8 @@ $ConfigMappings = @(
     @{ Name = "AutoHotkey Startup"; Source = "$ConfigDir\autohotkey\startup_ahk.exe"; Target = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\startup_ahk.lnk"; Type = "Shortcut" },
     @{ Name = "Windhawk Mods"; Source = "$ConfigDir\windhawk\mods"; Target = "$env:ProgramData\Windhawk\Engine\Mods"; Type = "CopyContents"; Service = "Windhawk" },
     @{ Name = "Windhawk Settings"; Source = "$ConfigDir\windhawk\userprofile.json"; Target = "$env:ProgramData\Windhawk\userprofile.json"; Type = "Copy"; Service = "Windhawk" },
-    @{ Name = "Command Palette"; Source = "$ConfigDir\powertoys\cmdpal_settings.json"; Target = "$env:LOCALAPPDATA\Packages\Microsoft.CommandPalette_8wekyb3d8bbwe\LocalState\settings.json"; Type = "Copy"; Process = "CommandPalette" }
+    @{ Name = "Command Palette Json"; Source = "$ConfigDir\powertoys\cmdpal_settings.json"; Target = "$env:LOCALAPPDATA\Packages\Microsoft.CommandPalette_8wekyb3d8bbwe\LocalState\settings.json"; Type = "Copy"; Process = "CommandPalette" }
+    @{ Name = "Command Palette Data"; Source = "$ConfigDir\powertoys\cmdpal_settings.dat"; Target = "$env:LOCALAPPDATA\Packages\Microsoft.CommandPalette_8wekyb3d8bbwe\Settings\settings.dat"; Type = "Copy"; Process = "CommandPalette" }
     # Neovim is handled within the powershell user profile
     # PowerToys is handled separately (see Invoke-PowerToysDeployment)
 )
