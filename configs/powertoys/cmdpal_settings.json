@@ -1,0 +1,448 @@
+{
+  "Hotkey": {
+    "win": false,
+    "ctrl": true,
+    "alt": false,
+    "shift": false,
+    "code": 32,
+    "key": ""
+  },
+  "ShowAppDetails": false,
+  "HotkeyGoesHome": true,
+  "BackspaceGoesBack": true,
+  "SingleClickActivates": true,
+  "HighlightSearchOnActivate": true,
+  "ProviderSettings": {
+    "AllApps": {
+      "IsEnabled": true,
+      "FallbackCommands": {}
+    },
+    "Run": {
+      "IsEnabled": false,
+      "FallbackCommands": {}
+    },
+    "Calculator": {
+      "IsEnabled": true,
+      "FallbackCommands": {}
+    },
+    "Files": {
+      "IsEnabled": true,
+      "FallbackCommands": {
+        "Files6648899597834275239": true
+      }
+    },
+    "Bookmarks": {
+      "IsEnabled": false,
+      "FallbackCommands": {}
+    },
+    "WindowWalker": {
+      "IsEnabled": true,
+      "FallbackCommands": {}
+    },
+    "WebSearch": {
+      "IsEnabled": true,
+      "FallbackCommands": {}
+    },
+    "WinGet": {
+      "IsEnabled": true,
+      "FallbackCommands": {}
+    },
+    "WindowsTerminalProfiles": {
+      "IsEnabled": true,
+      "FallbackCommands": {}
+    },
+    "Windows.Settings": {
+      "IsEnabled": true,
+      "FallbackCommands": {}
+    },
+    "Windows.Registry": {
+      "IsEnabled": false,
+      "FallbackCommands": {}
+    },
+    "Windows.Services": {
+      "IsEnabled": false,
+      "FallbackCommands": {}
+    },
+    "Core": {
+      "IsEnabled": true,
+      "FallbackCommands": {}
+    },
+    "DateTime": {
+      "IsEnabled": true,
+      "FallbackCommands": {}
+    },
+    "System": {
+      "IsEnabled": true,
+      "FallbackCommands": {}
+    },
+    "VictorLin.EverythingCP_yazqh14evg2ve!App!ID": {
+      "IsEnabled": true,
+      "FallbackCommands": {}
+    },
+    "AdvaithAJ.CurrencyConverterforCommandPalette_v0yv46xh6p59a!App!ID": {
+      "IsEnabled": true,
+      "FallbackCommands": {}
+    },
+    "51945Tlaster.252914CA2A7C_4xfafpbqf5xkt!App!ID": {
+      "IsEnabled": true,
+      "FallbackCommands": {}
+    },
+    "Windows.ClipboardHistory": {
+      "IsEnabled": true,
+      "FallbackCommands": {}
+    }
+  },
+  "Aliases": {
+    ":": {
+      "CommandId": "AllApps12262804574918292879",
+      "Alias": ":",
+      "IsDirect": true
+    },
+    "$": {
+      "CommandId": "com.microsoft.cmdpal.windowsSettings",
+      "Alias": "$",
+      "IsDirect": true
+    },
+    "=": {
+      "CommandId": "com.microsoft.cmdpal.calculator",
+      "Alias": "=",
+      "IsDirect": true
+    },
+    "\u003E": {
+      "CommandId": "com.microsoft.cmdpal.shell",
+      "Alias": "runcommands",
+      "IsDirect": false
+    },
+    "\u003C": {
+      "CommandId": "com.microsoft.cmdpal.windowwalker",
+      "Alias": "\u003C",
+      "IsDirect": true
+    },
+    "??": {
+      "CommandId": "com.microsoft.cmdpal.websearch",
+      "Alias": "?",
+      "IsDirect": true
+    },
+    "file": {
+      "CommandId": "com.microsoft.indexer.fileSearch",
+      "Alias": ".",
+      "IsDirect": true
+    },
+    ")": {
+      "CommandId": "com.microsoft.cmdpal.timedate",
+      "Alias": "@",
+      "IsDirect": true
+    },
+    "./ ": {
+      "CommandId": "com.microsoft.indexer.fileSearch",
+      "Alias": "file",
+      "IsDirect": false
+    },
+    "f ": {
+      "CommandId": "WindowsTerminalProfiles921560557230242642",
+      "Alias": "_",
+      "IsDirect": true
+    },
+    "_ ": {
+      "CommandId": "WindowsTerminalProfiles921560557230242642",
+      "Alias": "_",
+      "IsDirect": true
+    },
+    ": ": {
+      "CommandId": "AllApps12262804574918292879",
+      "Alias": ":",
+      "IsDirect": true
+    },
+    "settiings": {
+      "CommandId": "com.microsoft.cmdpal.windowsSettings",
+      "Alias": "settings",
+      "IsDirect": true
+    },
+    "settings": {
+      "CommandId": "com.microsoft.cmdpal.windowsSettings",
+      "Alias": "settings",
+      "IsDirect": true
+    },
+    "! ": {
+      "CommandId": "System9356856095700835494",
+      "Alias": "!",
+      "IsDirect": true
+    },
+    "time ": {
+      "CommandId": "com.microsoft.cmdpal.timedate",
+      "Alias": "time",
+      "IsDirect": true
+    },
+    "time  ": {
+      "CommandId": "com.microsoft.cmdpal.timedate",
+      "Alias": "time",
+      "IsDirect": true
+    },
+    "search": {
+      "CommandId": "com.microsoft.cmdpal.websearch",
+      "Alias": "?",
+      "IsDirect": true
+    },
+    "@": {
+      "CommandId": "com.microsoft.cmdpal.timedate",
+      "Alias": "@",
+      "IsDirect": true
+    },
+    "!": {
+      "CommandId": "System12041248464708101076",
+      "Alias": "!",
+      "IsDirect": true
+    },
+    "_": {
+      "CommandId": "WindowsTerminalProfiles921560557230242642",
+      "Alias": "_",
+      "IsDirect": true
+    },
+    ".": {
+      "CommandId": "com.microsoft.indexer.fileSearch",
+      "Alias": ".",
+      "IsDirect": true
+    },
+    "?": {
+      "CommandId": "com.microsoft.cmdpal.websearch",
+      "Alias": "?",
+      "IsDirect": true
+    },
+    "\u00A3 ": {
+      "CommandId": "51945Tlaster.252914CA2A7C_4xfafpbqf5xkt!App!ID16192942814272502486",
+      "Alias": "\u00A3",
+      "IsDirect": true
+    },
+    "walk": {
+      "CommandId": "com.microsoft.cmdpal.windowwalker",
+      "Alias": "\u003C",
+      "IsDirect": true
+    },
+    "walk ": {
+      "CommandId": "com.microsoft.cmdpal.windowwalker",
+      "Alias": "\u003C",
+      "IsDirect": true
+    },
+    "walk  ": {
+      "CommandId": "com.microsoft.cmdpal.windowwalker",
+      "Alias": "\u003C",
+      "IsDirect": true
+    },
+    "\u003C ": {
+      "CommandId": "com.microsoft.cmdpal.windowwalker",
+      "Alias": "\u003C",
+      "IsDirect": true
+    },
+    "open  ": {
+      "CommandId": "AllApps12262804574918292879",
+      "Alias": ":",
+      "IsDirect": true
+    },
+    "open ": {
+      "CommandId": "com.microsoft.cmdpal.windowwalker",
+      "Alias": "\u003C",
+      "IsDirect": true
+    },
+    "new ": {
+      "CommandId": "AllApps12262804574918292879",
+      "Alias": ":",
+      "IsDirect": true
+    },
+    "run": {
+      "CommandId": "com.microsoft.cmdpal.shell",
+      "Alias": "runcommands",
+      "IsDirect": false
+    },
+    "run ": {
+      "CommandId": "com.microsoft.cmdpal.shell",
+      "Alias": "runcommands",
+      "IsDirect": false
+    },
+    "run commands ": {
+      "CommandId": "com.microsoft.cmdpal.shell",
+      "Alias": "runcommands",
+      "IsDirect": false
+    },
+    "runcommands": {
+      "CommandId": "com.microsoft.cmdpal.shell",
+      "Alias": "runcommands",
+      "IsDirect": false
+    },
+    "date": {
+      "CommandId": "com.microsoft.cmdpal.timedate",
+      "Alias": "@",
+      "IsDirect": true
+    },
+    "time": {
+      "CommandId": "com.microsoft.cmdpal.timedate",
+      "Alias": "@",
+      "IsDirect": true
+    },
+    "\u00A3": {
+      "CommandId": "51945Tlaster.252914CA2A7C_4xfafpbqf5xkt!App!ID16192942814272502486",
+      "Alias": "\u00A3",
+      "IsDirect": true
+    }
+  },
+  "CommandHotkeys": [
+    {
+      "CommandId": "com.microsoft.cmdpal.shell",
+      "Hotkey": {
+        "win": false,
+        "ctrl": false,
+        "alt": true,
+        "shift": true,
+        "code": 82,
+        "key": ""
+      }
+    },
+    {
+      "CommandId": "51945Tlaster.252914CA2A7C_4xfafpbqf5xkt!App!ID16192942814272502486",
+      "Hotkey": {
+        "win": false,
+        "ctrl": false,
+        "alt": true,
+        "shift": true,
+        "code": 67,
+        "key": ""
+      }
+    },
+    {
+      "CommandId": "AllApps12262804574918292879",
+      "Hotkey": {
+        "win": false,
+        "ctrl": false,
+        "alt": true,
+        "shift": true,
+        "code": 79,
+        "key": ""
+      }
+    },
+    {
+      "CommandId": "com.microsoft.cmdpal.calculator",
+      "Hotkey": {
+        "win": false,
+        "ctrl": false,
+        "alt": true,
+        "shift": true,
+        "code": 69,
+        "key": ""
+      }
+    },
+    {
+      "CommandId": "com.microsoft.cmdpal.websearch",
+      "Hotkey": {
+        "win": false,
+        "ctrl": false,
+        "alt": true,
+        "shift": true,
+        "code": 87,
+        "key": ""
+      }
+    },
+    {
+      "CommandId": "WindowsTerminalProfiles921560557230242642",
+      "Hotkey": {
+        "win": false,
+        "ctrl": false,
+        "alt": true,
+        "shift": true,
+        "code": 84,
+        "key": ""
+      }
+    },
+    {
+      "CommandId": "com.microsoft.cmdpal.timedate",
+      "Hotkey": {
+        "win": false,
+        "ctrl": false,
+        "alt": true,
+        "shift": true,
+        "code": 68,
+        "key": ""
+      }
+    },
+    {
+      "CommandId": "Core6652798754440395417",
+      "Hotkey": {
+        "win": true,
+        "ctrl": true,
+        "alt": true,
+        "shift": false,
+        "code": 83,
+        "key": ""
+      }
+    },
+    {
+      "CommandId": "com.microsoft.cmdpal.windowwalker",
+      "Hotkey": {
+        "win": false,
+        "ctrl": false,
+        "alt": true,
+        "shift": false,
+        "code": 32,
+        "key": ""
+      }
+    },
+    {
+      "CommandId": "System12041248464708101076",
+      "Hotkey": {
+        "win": false,
+        "ctrl": false,
+        "alt": true,
+        "shift": true,
+        "code": 80,
+        "key": ""
+      }
+    },
+    {
+      "CommandId": "com.microsoft.cmdpal.windowsSettings",
+      "Hotkey": {
+        "win": false,
+        "ctrl": false,
+        "alt": true,
+        "shift": true,
+        "code": 83,
+        "key": ""
+      }
+    },
+    {
+      "CommandId": "com.microsoft.indexer.fileSearch",
+      "Hotkey": {
+        "win": false,
+        "ctrl": false,
+        "alt": true,
+        "shift": true,
+        "code": 70,
+        "key": ""
+      }
+    }
+  ],
+  "SummonOn": "ToPrimary",
+  "apps.EnableStartMenuSource": "true",
+  "apps.EnableDesktopSource": "false",
+  "apps.EnableRegistrySource": "true",
+  "apps.EnablePathEnvironmentVariableSource": "false",
+  "timeDate.FirstWeekOfYear": "-1",
+  "timeDate.FirstDayOfWeek": "-1",
+  "timeDate.OnlyDateTimeNowGlobal": "true",
+  "timeDate.TimeWithSecond": "true",
+  "timeDate.DateWithWeekday": "true",
+  "timeDate.HideNumberMessageOnGlobalQuery": "true",
+  "websearch.GlobalIfURI": "false",
+  "websearch.ShowHistory": "5",
+  "windowWalker.ResultsFromVisibleDesktopOnly": "false",
+  "windowWalker.SubtitleShowPid": "true",
+  "windowWalker.SubtitleShowDesktopName": "true",
+  "windowWalker.ConfirmKillProcess": "false",
+  "windowWalker.KillProcessTree": "false",
+  "windowWalker.OpenAfterKillAndClose": "true",
+  "windowWalker.HideKillProcessOnElevatedProcesses": "false",
+  "windowWalker.HideExplorerSettingInfo": "false",
+  "windowWalker.InMruOrder": "true",
+  "shell.LeaveShellOpen": "true",
+  "shell.ShellCommandExecution": "3",
+  "UseLowLevelGlobalHotkey": false,
+  "ShowSystemTrayIcon": true,
+  "IgnoreShortcutWhenFullscreen": false
+}
